@@ -1,25 +1,24 @@
 package shapes;
 
 public class Point {
-    int x;
-    int y;
+    public float x = 0, y = 0;
 
-    int[] coordenadas = {0,0};
-
-    public Point(int x, int y){
+    public Point(float x, float y){
         this.x = x;
         this.y = y;
-        coordenadas[0]=this.x;
-        coordenadas[1] = this.y;
     }
-
-    public int x() {
+// GET
+    public float getX() {
         return this.x;
     }
-    public int y(){
+    public float getY(){
         return this.y;
     }
-    public int[] c(){
-        return coordenadas;
+// SET
+    public void setX(float x){
+        this.x = x;
+    }
+    public void setY(float y){
+        this.y = y;
     }
 }

@@ -1,7 +1,7 @@
 package shapes;
-
+/*
 public class Triangulo extends Shapes{
-    /*
+
     @Override
     public Tri(name, x,y,){
         super.name = name;
@@ -12,6 +12,6 @@ public class Triangulo extends Shapes{
     getpint02;
             getponto3;
     getcentro;
-*/
 
 }
+*/

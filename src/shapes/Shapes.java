@@ -6,7 +6,7 @@ public abstract class Shapes {
     boolean closed = true;
 
     // CONSTRUCT
-    public Shapes(String name, int x, int y, boolean close){
+    public Shapes(String name, float x, float y, boolean close){
         setName(name);
         this.center.x = x;
         this.center.y = y;
@@ -27,7 +27,7 @@ public abstract class Shapes {
     // SET
     public void setName(String name) {
         if( nameValid(name)){ // if is valid
-           this.name = name + nameExists(allShapes, name); // TODO
+           this.name = name; //+ nameExists(allShapes, name); // TODO
         }
     }
     public boolean nameValid(String name){
@@ -49,8 +49,8 @@ public abstract class Shapes {
     }
 
     public void setCenter(Point newCenter){
-        getCenter().x = newCenter.x;
-        getCenter().y = newCenter.y;
+        getCenter().setX(newCenter.getX());
+        getCenter().setY(newCenter.getY());
     }
 
     public void setClosed(Boolean bol){
