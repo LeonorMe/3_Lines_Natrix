@@ -13,44 +13,26 @@ public class Triangulo extends Forma{
         }
     }
 
-    // GET
-    public Ponto[] getPontos(){
-        return points;
-    }
-
-    // SET
-    public void setPonto(int indice,float x, float y){
-        this.points[indice].x = x;
-        this.points[indice].y = y;
-    }
-
     // DO STUFF
-    @Override
-    public void setCenter(Ponto newCenter){
-        getCenter().setX(newCenter.getX());
-        getCenter().setY(newCenter.getY());
-
-        for (Ponto point: this.points) {
-            point.x -= newCenter.x;
-            point.y -= newCenter.y;
-        }
-    }
 
     @Override
     public void setClosed(Boolean bol){
         System.out.println("Esta forma pode ser preenchida.");
     }
 
-    public float perimetro(){
+    public Reta[] retas() {
         Reta a = new Reta("a", points[0], points[1]);
         Reta b = new Reta("b", points[1], points[2]);
         Reta c = new Reta("c", points[2], points[3]);
-        return a.comprimento() + b.comprimento() + c.comprimento();
+        return new Reta[] {a,b,c};
+    }
+
+    public float perimetro(){
+        return retas()[0].comprimento() + retas()[1].comprimento() + retas()[2].comprimento();
     }
     public float area(){
-        Reta base = new Reta("base", points[0], points[1]);
         float altura = 1; // TODO
-        return base.comprimento() * altura / 2.0f;
+        return retas()[0].comprimento() * altura / 2.0f;
     }
 
     // ABSTRACT IMPLEMENTATION

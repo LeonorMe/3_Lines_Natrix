@@ -9,28 +9,7 @@ public class Reta extends Forma {
         this.points = new Ponto[]{p1, p2};
     }
 
-    // GET
-    public Ponto[] getPontos(){
-        return points;
-    }
-
-    // SET
-    public void setPonto(int indice,float x, float y){
-        this.points[indice].x = x;
-        this.points[indice].y = y;
-    }
-
     // DO STUFF
-    @Override
-    public void setCenter(Ponto newCenter){
-        getCenter().setX(newCenter.getX());
-        getCenter().setY(newCenter.getY());
-
-        for (Ponto point: this.points) {
-            point.x -= newCenter.x;
-            point.y -= newCenter.y;
-        }
-    }
 
     @Override
     public void setClosed(Boolean bol){

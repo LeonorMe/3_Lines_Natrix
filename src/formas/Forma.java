@@ -20,8 +20,11 @@ public abstract class Forma {
     public Ponto getCenter() {
         return center;
     }
-    public boolean isClosed() {
+    public boolean getClosed() {
         return closed;
+    }
+    public Ponto[] getPontos(){
+        return points;
     }
 
     // SET
@@ -61,16 +64,25 @@ public abstract class Forma {
     public void setClosed(Boolean bol){
         this.closed = bol;
     }
+    public void setPonto(int indice,float x, float y){
+        this.points[indice].x = x;
+        this.points[indice].y = y;
+    }
 
     // DO STUFF
     public void setCenter(Ponto newCenter){
         getCenter().setX(newCenter.getX());
         getCenter().setY(newCenter.getY());
+
+        for (Ponto point: this.points) {
+            point.x -= newCenter.x;
+            point.y -= newCenter.y;
+        }
     }
 
 
     public boolean fill(){
-        if(this.isClosed()){
+        if(this.getClosed()){
             System.out.println("Pode ser pintada");
             return true;
         }
@@ -80,8 +92,11 @@ public abstract class Forma {
         }
     }
 
+    public String toString(){
+        return this.name;
+    }
+
     public void show(){
-        System.out.println("Forma: " + this.name);
         System.out.println("Com centro em " + this.center);
         System.out.println("A forma é fechada?" + this.closed);
     }

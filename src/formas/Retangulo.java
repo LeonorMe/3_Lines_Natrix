@@ -1,66 +1,51 @@
 package formas;
 
-public class Retangulo extends Forma{
-    private Ponto[] points = {new Ponto(0,0), new Ponto(0,0)};
+public class Retangulo extends Forma {
+    private Ponto[] points = {new Ponto(0, 0), new Ponto(0, 0), new Ponto(0, 0), new Ponto(0, 0)};
 
     // CONSTRUCT
     public Retangulo(String name, Ponto[] p) {
         super(name, p[0].x, p[0].y, true);
-        if(p.length == 4){
-            this.points = p;
-        }else{
-            System.out.println("Erro 006: Tem que ter 4 pontos.");
+        if (p.length == 2) {
+            this.points[0] = p[0];
+            this.points[2] = p[1];
+        } else {
+            System.out.println("Erro 006: Tem que ter 2 pontos.");
         }
-    }
-
-    // GET
-
-    public Ponto[] getPontos(){
-        return points;
-    }
-
-    // SET
-    public void setPonto(int indice,float x, float y){
-        this.points[indice].x = x;
-        this.points[indice].y = y;
+        this.points[1] = new Ponto(p[1].x, p[0].y);
+        this.points[3] = new Ponto(p[0].x, p[1].y);
     }
 
     // DO STUFF
-    @Override
-    public void setCenter(Ponto newCenter){
-        getCenter().setX(newCenter.getX());
-        getCenter().setY(newCenter.getY());
-
-        for (Ponto point: this.points) {
-            point.x -= newCenter.x;
-            point.y -= newCenter.y;
-        }
-    }
 
     @Override
-    public void setClosed(Boolean bol){
+    public void setClosed(Boolean bol) {
         System.out.println("Esta forma pode ser preenchida.");
     }
 
+    public Reta[] retas() {
+        Reta a = new Reta("a", this.points[0], this.points[1]),
+                b = new Reta("b", this.points[1], this.points[2]);
+        return new Reta[] {a,b};
+    }
     public float perimetro(){
-        Reta a = new Reta("a", points[0], points[1]);
-        Reta b = new Reta("b", points[1], points[2]);
-        Reta c = new Reta("c", points[2], points[3]);
-        return a.comprimento() + b.comprimento() + c.comprimento();
+        return retas()[0].comprimento() * 2f + retas()[0].comprimento() * 2f;
     }
     public float area(){
-        Reta base = new Reta("base", points[0], points[1]);
-        float altura = 1; // TODO
-        return base.comprimento() * altura / 2.0f;
+        return retas()[0].comprimento() * retas()[1].comprimento();
     }
 
     // ABSTRACT IMPLEMENTATION
 
+
+    @Override
+    public String toString(){
+        return "Retangulo" + this.getName();
+    }
     @Override
     public void show() {
         // super ? TODO
-        System.out.println("Triangulo: " + this.getName());
-        System.out.println("Triangulo nos pontos " + this.points[0].toString() + ", " + this.points[1].toString() + ", " + this.points[2].toString());
+        System.out.println("Retangulo nos pontos " + this.points[0].toString() + ", " + this.points[1].toString() + ", " + this.points[2].toString() + ", " + this.points[3].toString());
     }
 
     @Override
@@ -71,12 +56,13 @@ public class Retangulo extends Forma{
 
     // MAIN
     public static void main(String[] args) {
-        Ponto[] p = {new Ponto(2,3), new Ponto(20,20), new Ponto(50,60)};
-        Triangulo tri= new Triangulo("tri_001", p);
-        tri.show();
-        tri.resize(0.5f);
-        tri.show();
-        tri.fill();
-        tri.saveSVG();
+        Ponto[] p = {new Ponto(20,30), new Ponto(50,60)};
+        Retangulo ret= new Retangulo("ret_004", p);
+        ret.show();
+        ret.resize(0.5f);
+        ret.show();
+        ret.fill();
+        ret.saveSVG();
+        ret.setClosed(true);
     }
 }
