@@ -1,4 +1,4 @@
-package shapes;
+package formas;
 /*
 
 class Poligno extends Shapes{
