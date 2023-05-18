@@ -1,4 +1,7 @@
 package painels;
 
-public class Menu {
+import javax.swing.*;
+
+public class Menu extends JPanel {
+    JPanel menuP = new JPanel();
 }

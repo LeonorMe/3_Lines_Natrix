@@ -1,10 +1,21 @@
 import painels.*;
 import javax.swing.*;
+import java.util.Scanner;
 
 public class Frame {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
         JFrame frame = new JFrame("3 Lines Natrix");
         frame.setSize(1920, 1018);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(true);
+        frame.setLocationRelativeTo(null);
+        frame.setLayout(null);
+
+        int painel = 0;
+        System.out.println("Chose Painel: 0 - Start, 1 - Create, 2 - Edit, 3 - Save, 4 - Load, 5 - Exit, 6 - Menu");
+        painel = scanner.nextInt();
 
         switch (painel){
             case 0:
@@ -24,7 +35,7 @@ public class Frame {
             default:
                 frame.add(new Start());
         }
-*/
+
         frame.setVisible(true);
     }
 }

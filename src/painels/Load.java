@@ -1,4 +1,7 @@
 package painels;
 
-public class Load {
+import javax.swing.*;
+
+public class Load extends JPanel {
+    JPanel loadP = new JPanel();
 }

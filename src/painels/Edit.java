@@ -1,4 +1,7 @@
 package painels;
 
-public class Edit {
+import javax.swing.*;
+
+public class Edit extends JPanel {
+    JPanel editP = new JPanel();
 }
