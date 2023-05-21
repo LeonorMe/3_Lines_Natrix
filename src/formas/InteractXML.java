@@ -1,59 +1,75 @@
 package formas;
 
-
 import org.w3c.dom.*;
+import org.xml.sax.SAXException;
 
 import java.io.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 
 public class InteractXML {
-    /*
-    public static InteractXML build(Node nNode) {
-        Element festival = (Element) nNode;
-        String name = festival.getElementsByTagName("Nome").item(0).getTextContent();
 
-        NodeList eventos = festival.getElementsByTagName("Eventos").item(0).getChildNodes();
-        InteractXML festivalNovo = new InteractXML(name);
+    public static Element openSVG(String inPath) throws ParserConfigurationException, IOException, SAXException {
+        File inputFile = new File(inPath);
 
-        for(int i=0;i<eventos.getLength(); i++) {
-            Node eventoI = eventos.item(i);
-            InteractXML eventoNew = Shapes.build(eventoI);
-            festivalNovo.addEvento(eventoNew);
-        }
-        return festivalNovo;
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dbuilder = dbFactory.newDocumentBuilder();
+
+        Document doc = dbuilder.parse(inputFile);
+
+        System.out.println("File opened! Check it here: " + inPath);
+        System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
+
+        return doc.getDocumentElement();
     }
 
+    private static Element rootSVG(Document doc, int width, int height) {
+        Element svg = doc.createElement("svg");
 
-    public Element createElement(Document doc) {
-        Element name = doc.createElement("Nome");
-        name.appendChild(doc.createTextNode(this.getNome()));
+        svg.setAttribute("width", Integer.toString(width));
+        svg.setAttribute("height", Integer.toString(height));
+        //svg.setAttribute("viewBox", "0 0 " + Integer.toString(this.width) + " " + Integer.toString(this.height));
 
-        Element eventosEle = doc.createElement("Eventos");
-        for(Shapes evento : this.shapes){
-            if(evento!=null){eventosEle.appendChild(evento.createElement(doc));}
-        }
-
-        Element festival = doc.createElement("Festival");
-        festival.appendChild(name);
-        festival.appendChild(eventosEle);
-
-        return festival;
+        svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        return svg;
     }
-*/
-    private static void writeXml(Document doc, OutputStream output) throws TransformerException {
+
+    public static Document creatEmptySVG(String outPath, int width, int height) throws ParserConfigurationException, TransformerException {
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dbuilder = dbFactory.newDocumentBuilder();
+        Document doc = dbuilder.newDocument();
+
+        Element rSVG = rootSVG(doc, width, height); // root element <svg>
+        doc.appendChild(rSVG);
+
+        DOMSource source = new DOMSource(doc);
+
+        File outFile = new File(outPath);
+        Result result = new StreamResult(outFile);
 
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
-
-        // pretty print XML
+        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-
-        DOMSource source = new DOMSource(doc);
-        StreamResult result = new StreamResult(output);
-
         transformer.transform(source, result);
+
+        System.out.println("File created! Check it here: " + outPath);
+
+        return doc;
+    }
+
+    public static void main(String[] args) throws Exception {
+        // READ FROM EXISTING SVG FILE
+        String inPath = "SVG_files/open_svg.svg";
+        openSVG(inPath);
+
+        // CREATE NEW SVG FILE
+        String outPath = "SVG_files/new_01.svg";
+        creatEmptySVG(outPath, 500, 500);
     }
 }

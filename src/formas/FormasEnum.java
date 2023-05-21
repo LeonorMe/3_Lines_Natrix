@@ -1,8 +1,11 @@
 package formas;
 
 enum FormasEnum{
-    RETA,
-    TRIANGULO,
-    RETANGULO,
-    POLIGONO;
+    Rectangle,
+    Circle,
+    Ellipse,
+    Line,
+    Polyline,
+    Polygon,
+    Path
 }

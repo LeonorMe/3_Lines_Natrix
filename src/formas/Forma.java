@@ -1,118 +1,72 @@
 package formas;
 
-public abstract class Forma {
-    private String name="shape";
-    private Ponto center = new Ponto(0,0);
-    private boolean closed = true;
-    private Ponto[] points = {new Ponto(0,0)};
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
-    // CONSTRUCT
-    public Forma(String name, float v, float v1, boolean close){
-        setName(this.name);
-        this.center.p(v,v1);
-        this.closed = close;
+import java.util.HexFormat;
+
+public abstract class Forma {
+    private String id="000", fill="#000", stroke="#fff", stroke_width="1";
+    private float x=0, y=0;
+
+    public void Forma(String id, float x, float y, String fill, String stroke, String stroke_width){
+        this.id = id;
+        this.x = x;
+        this.y = y;
+        this.fill = fill;
+        this.stroke = stroke;
+        this.stroke_width = stroke_width;
     }
 
     // GET
-    public String getName(){
-        return this.name;
+    String getId(){
+        return this.id;
     }
-    public Ponto getCenter() {
-        return center;
+    float getX(){
+        return this.x;
     }
-    public boolean getClosed() {
-        return closed;
+    float getY(){
+        return this.y;
     }
-    public Ponto[] getPontos(){
-        return points;
+    String getFill(){
+        return this.fill;
     }
-
+    String getStroke(){
+        return this.stroke;
+    }
+    String getStroke_width(){
+        return this.stroke_width;
+    }
     // SET
-    public void setName(String name) {
-        if(nameValid(name)){ // if is valid
-            char[] nome = name.toCharArray();
-            for(int i=0; i<nome.length; i++){
-                if(nome[i] == ' '){
-                    nome[i] = '_';
-                }
-            }
-           this.name = nome.toString(); //+ nameExists(allShapes, name); // TODO
-        }else{
-            this.name = "shape_000";
-            System.out.println("Erro 002: Nome inválido, usa a notação shape_001");
-        }
+    private void setId(String id){
+        this.id = id;
     }
-    public boolean nameValid(String name){
-        if(name != null && name != ""){ // if is valid  //&& name != this.getName() ?
-            return true;
-        }
-        System.out.println("Erro 004: O nome não é válido");
-        return false;
+    public void setX(float x){
+        this.x = x;
     }
-    public String nameExists(Forma[] allShapes, String name){
-        String nameEnd=null;
-        int i=0;
-        for(Forma shape : allShapes) { // check if is diferente from all of the names that existes
-            if (name == shape.getName()) {
-                nameEnd = "0" + Integer.toString(i);
-            }
-            i++;
-        }
-        return nameEnd;
+    public void setY(float y){
+        this.y = y;
+    }
+    public void setFill(String fill){
+        this.fill = fill;
+    }
+    public void setStroke(String stroke){
+        this.stroke = stroke;
+    }
+    public void setStroke_width(String stroke_width){
+        this.stroke_width = stroke_width;
     }
 
-    public void setClosed(Boolean bol){
-        this.closed = bol;
-    }
-    public void setPonto(int indice,float x, float y){
-        this.points[indice].x = x;
-        this.points[indice].y = y;
-    }
-
-    // DO STUFF
-    public void setCenter(Ponto newCenter){
-        getCenter().setX(newCenter.getX());
-        getCenter().setY(newCenter.getY());
-
-        for (Ponto point: this.points) {
-            point.x -= newCenter.x;
-            point.y -= newCenter.y;
-        }
+    public void addElement(Element svg, Element elem) {
+        elem.setAttribute("id", this.id);
+        elem.setAttribute("x", Float.toString(this.x));
+        elem.setAttribute("y", Float.toString(this.y));
+        elem.setAttribute("stroke", this.stroke);
+        elem.setAttribute("fill", this.fill);
+        svg.appendChild(elem);
     }
 
-
-    public boolean fill(){
-        if(this.getClosed()){
-            System.out.println("Pode ser pintada");
-            return true;
-        }
-        else{
-            System.out.println("É necessário fechar a forma primeiro");
-            return false;
-        }
-    }
-
-    public String toString(){
-        return this.name;
-    }
-
-    public void show(){
-        System.out.println("Com centro em " + this.center);
-        System.out.println("A forma é fechada?" + this.closed);
-    }
-
-    // ABSTRACT
-    public void resize(float times) {
-        for (Ponto point: this.points) {
-            point.x *= times;
-            point.y *= times;
-        }
-    }
-
-    public abstract void  saveSVG();
-
-    // MAIN
-    public static void main(String[] args) {
-        System.out.println("Shapes.java");
+    public void delElement(Element svg, Document doc) {
+        svg.removeChild(doc.getElementById(this.id));
     }
 }

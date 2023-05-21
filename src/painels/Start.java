@@ -63,12 +63,34 @@ public class Start extends JPanel{
         // ADD START BUTTON
         JButton button = new JButton("Play");
         startP.add(button);
+
+        frame.add(startP);
+
+//====================== createP =============================
+        JPanel createP = new JPanel();
+        createP.setBackground(Color.WHITE);
+        createP.add(new JLabel("Create"));
+
+        JComboBox comboBox = new JComboBox();
+        comboBox.addItem("New Project");
+        comboBox.addItem("Open Project");
+        createP.add(comboBox);
+        JComboBox comboBox2 = new JComboBox();
+        comboBox2.addItem("Reta");
+        comboBox2.addItem("Triangulo");
+        comboBox2.addItem("Retangulo");
+        comboBox2.addItem("Poligono");
+        createP.add(comboBox2);
+//======================== // ================================
+
         button.addActionListener(e ->{
-            System.out.println("A iniciar...");
+            JLabel iniciarLabel = new JLabel("A iniciar...");
+            iniciarLabel.setBounds(100, 50, 120, 80);
+            startP.add(iniciarLabel);
+            frame.add(createP);
         });
 
 
-        frame.add(startP);
         frame.setVisible(true);
     }
 }

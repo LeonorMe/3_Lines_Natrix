@@ -1,10 +1,26 @@
 import formas.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Result;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stax.StAXResult;
+import javax.xml.transform.stream.StreamResult;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import static formas.InteractXML.*;
+
 public class Main {
 
     public static void main(String[] args) throws Exception{
+        /*
         Scanner scan = new Scanner(System.in);
         System.out.println("Bem vindo ao SVG Editor - 3 Lines Natrix!" + "\nV0.0");
         System.out.println("Clic 1 to start, 0 to exit...");
@@ -46,5 +62,23 @@ public class Main {
                     Ponto ponto = new Ponto(400,400);
             }
         }
+*/
+        // CREATE NEW SVG FILE
+        String outPath = "SVG_files/new_02.svg";
+        Document doc = creatEmptySVG(outPath, 720/2, 720);
+        // READ FROM EXISTING SVG FILE
+        Element svg = openSVG(outPath);
+
+        // add element <circle>
+        Circle circle = new Circle("000", 10f, 20f, 15f, "green", "black", "3");
+        circle.addElement(svg, doc.createElement("circle"));
+
+        // add element <rect>
+        Rectangle rect = new Rectangle("001", 20f, 30f, 40f, 50f, "red", "black", "3");
+        rect.addElement(svg, doc.createElement("rect"));
+
+        // add element <line>
+        Line line = new Line("002", 60f, 70f, 80f, 90f, "blue", "black", "3");
+        line.addElement(svg, doc.createElement("line"));
     }
 }
