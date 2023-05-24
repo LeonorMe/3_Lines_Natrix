@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+    <!ELEMENT text (#PCDATA)>
+
+    <!ELEMENT line (text)*>
+        <!ATTLIST line
+                x1 x2 y1 y2 #REQUIRED
+                fill id stroke #IMPLIED>
+    <!ELEMENT rect (text)*>
+        <!ATTLIST rect
+                height width x y #REQUIRED
+                fill id stroke #IMPLIED>
+    <!ELEMENT circle (text)*>
+        <!ATTLIST circle
+                cx cy r #REQUIRED
+                fill id stroke #IMPLIED>
+
+    <!ELEMENT svg (line|rect|circle|text)*>
+    <!ATTLIST svg
+            xmlns height width #REQUIRED>
