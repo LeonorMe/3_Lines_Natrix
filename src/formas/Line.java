@@ -2,7 +2,7 @@ package formas;
 
 import org.w3c.dom.Element;
 
-public class Line extends Forma{
+public class Line extends AbstShape {
     private String id="000";
     private float x2=0, y2=0;
 
@@ -13,6 +13,10 @@ public class Line extends Forma{
     }
 
     // GET
+    @Override
+    public String getType(){
+        return "line";
+    }
     float getX2(){
         return this.x2;
     }

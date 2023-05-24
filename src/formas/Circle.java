@@ -1,10 +1,9 @@
 package formas;
 
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import javax.xml.parsers.ParserConfigurationException;
 
-public class Circle extends Forma{
+public class Circle extends AbstShape {
     private String id="000";
     private float x=0, y=0, r=0;
 
@@ -14,6 +13,10 @@ public class Circle extends Forma{
     }
 
     // GET
+    @Override
+    public String getType(){
+        return "circle";
+    }
     float getR(){
         return this.r;
     }
@@ -35,5 +38,11 @@ public class Circle extends Forma{
     public static void main(String[] args) throws ParserConfigurationException {
         Circle circle = new Circle("000", 10, 20, 15, "white", "black", "1");
         circle.setR(30);
+    }
+
+    public void show(){
+        super.show();
+        System.out.println("Circle");
+        System.out.println("r: " + this.r);
     }
 }

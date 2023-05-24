@@ -4,6 +4,7 @@ import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 import java.io.*;
+import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -11,8 +12,38 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+// TODO DTD and UML Schema
 
-public class InteractXML {
+public class Image {
+    private int width, height;
+    private ArrayList<AbstShape> shapes = new ArrayList<AbstShape>();
+
+    public Image(int width, int height){
+        this.width = width;
+        this.height = height;
+    }
+
+    public int[] getDimensions(){
+        int[] dimensions = {this.width, this.height};
+        return dimensions;
+    }
+
+    ArrayList<AbstShape> getShapes(){
+        return this.shapes;
+    }
+
+    private void setDimensions(int width, int height){
+        this.width = width;
+        this.height = height;
+    }
+
+    public void addShape(AbstShape shape){
+        this.shapes.add(shape);
+    }
+
+    public void removeShape(AbstShape shape){
+        this.shapes.remove(shape);
+    }
 
     public static Element openSVG(String inPath) throws ParserConfigurationException, IOException, SAXException {
         File inputFile = new File(inPath);
@@ -28,24 +59,33 @@ public class InteractXML {
         return doc.getDocumentElement();
     }
 
-    private static Element rootSVG(Document doc, int width, int height) {
+    private Element rootSVG(Document doc) {
         Element svg = doc.createElement("svg");
 
-        svg.setAttribute("width", Integer.toString(width));
-        svg.setAttribute("height", Integer.toString(height));
+        svg.setAttribute("width", Integer.toString(this.width));
+        svg.setAttribute("height", Integer.toString(this.height));
         //svg.setAttribute("viewBox", "0 0 " + Integer.toString(this.width) + " " + Integer.toString(this.height));
 
         svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
         return svg;
     }
 
-    public static Document creatEmptySVG(String outPath, int width, int height) throws ParserConfigurationException, TransformerException {
+    private void appendShapes(Document doc, Element svg) {
+        for (AbstShape shape : this.shapes) {
+            Element shapeElement = doc.createElement(shape.getType());
+            shape.addElement(svg, shapeElement);
+        }
+    }
+
+    public Document saveSVG(String outPath) throws ParserConfigurationException, TransformerException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dbuilder = dbFactory.newDocumentBuilder();
         Document doc = dbuilder.newDocument();
 
-        Element rSVG = rootSVG(doc, width, height); // root element <svg>
-        doc.appendChild(rSVG);
+        Element svg = rootSVG(doc);
+        doc.appendChild(svg); // root element <svg>
+
+        appendShapes(doc, svg);
 
         DOMSource source = new DOMSource(doc);
 
@@ -64,12 +104,22 @@ public class InteractXML {
     }
 
     public static void main(String[] args) throws Exception {
+        /*
         // READ FROM EXISTING SVG FILE
         String inPath = "SVG_files/open_svg.svg";
         openSVG(inPath);
 
         // CREATE NEW SVG FILE
+        // 1. Create new image
+        Image newImage = new Image(500, 500);
+
+        // 2. Add shapes
+        Circle newCircle = new Circle("000", 10, 20, 80, "black", "black", "1");
+        newImage.addShape(newCircle);
+
+        // 3. Save image in new empty SVG file
         String outPath = "SVG_files/new_01.svg";
-        creatEmptySVG(outPath, 500, 500);
+        newImage.saveSVG(outPath);
+         */
     }
 }

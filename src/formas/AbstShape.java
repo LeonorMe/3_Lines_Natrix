@@ -3,9 +3,7 @@ package formas;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import java.util.HexFormat;
-
-public abstract class Forma {
+public abstract class AbstShape {
     private String id="000", fill="#000", stroke="#fff", stroke_width="1";
     private float x=0, y=0;
 
@@ -19,6 +17,7 @@ public abstract class Forma {
     }
 
     // GET
+    public abstract String getType();
     String getId(){
         return this.id;
     }
@@ -59,8 +58,8 @@ public abstract class Forma {
 
     public void addElement(Element svg, Element elem) {
         elem.setAttribute("id", this.id);
-        elem.setAttribute("x", Float.toString(this.x));
-        elem.setAttribute("y", Float.toString(this.y));
+        //elem.setAttribute("x", Float.toString(this.x));
+        //elem.setAttribute("y", Float.toString(this.y));
         elem.setAttribute("stroke", this.stroke);
         elem.setAttribute("fill", this.fill);
         svg.appendChild(elem);
@@ -68,5 +67,14 @@ public abstract class Forma {
 
     public void delElement(Element svg, Document doc) {
         svg.removeChild(doc.getElementById(this.id));
+    }
+
+    public void show() {
+        System.out.println("ID: " + this.id);
+        System.out.println("X: " + this.x);
+        System.out.println("Y: " + this.y);
+        System.out.println("Fill: " + this.fill);
+        System.out.println("Stroke: " + this.stroke);
+        System.out.println("Stroke-width: " + this.stroke_width);
     }
 }

@@ -2,83 +2,114 @@ import formas.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Result;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stax.StAXResult;
-import javax.xml.transform.stream.StreamResult;
-import java.io.File;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import static formas.InteractXML.*;
+import static formas.Image.*;
 
-public class Main {
+public class Main { // TODO DTD
 
     public static void main(String[] args) throws Exception{
-        /*
         Scanner scan = new Scanner(System.in);
-        System.out.println("Bem vindo ao SVG Editor - 3 Lines Natrix!" + "\nV0.0");
+        System.out.println("Bem vindo ao SVG Editor - 3 Lines Natrix!" + "\nLeonor Medeiros - A50758" + "\nV0.5");
         System.out.println("Clic 1 to start, 0 to exit...");
         int resp0 = scan.nextInt();
+
         if(resp0 == 0){
             System.out.println("Obrigada por utilizar este Software! Até à próxima.");
         }else{
             System.out.println("Bem vindo à 3 Lines Natrix, o seu software de edição de Imagens em formato SVG.");
 
-            ArrayList<Forma> allFormas = new ArrayList<Forma>();
+            System.out.println("0 Criar nova imagem;\n1 Abrir imagem existente;");
+            int resp1 = scan.nextInt();
 
-            System.out.println("Começa a criar as tuas formas:\n0 Reta;\n1 Triangulo;\n2 Retangulo;\n3 Poligono");
-            int forma = scan.nextInt();
+            if (resp1 == 0){
+                System.out.println("Qual o tamanho da imagem que deseja criar? (largura x altura)");
+                int largura = scan.nextInt();
+                int altura = scan.nextInt();
+                Image imagem = new Image(largura, altura);
+                System.out.println("Imagem criada com sucesso!");
 
-            switch (forma){
-                case 0:
-                    Reta linha = new Reta("forma_000", new Ponto(20, 6), new Ponto(50,90));
-                    //allFormas.add(linha);
-                    linha.show();
-                case 1:
-                    Ponto[] p1 = {new Ponto(2,3), new Ponto(20,20), new Ponto(50,60)};
-                    Triangulo tri= new Triangulo("tri_001", p1);
-                    tri.show();
-                case 2:
-                    Ponto[] p2 = {new Ponto(20,30), new Ponto(50,60)};
-                    Retangulo ret= new Retangulo("ret_004", p2);
-                    ret.show();
-                case 3:
-                    ArrayList<Ponto> p3 = new ArrayList<Ponto>();
-                    p3.add(new Ponto(2,3));
-                    p3.add(new Ponto(20,20));
-                    p3.add(new Ponto(50,60));
-                    p3.add(new Ponto(400,600));
-                    p3.add(new Ponto(700,750));
+                int resp2=0;
+                do {
+                    System.out.println("Começa a criar as tuas formas:\n0 Line;\n1 Rectangle;\n2 Circle;\n3 Point;");
+                    int forma = scan.nextInt();
 
-                    Poligono poli = new Poligono("poli_005", p3);
-                    poli.show();
-                default:
-                    Ponto ponto = new Ponto(400,400);
+                    if (forma < 4 && forma >= 0) {
+                        if(forma == 0) {
+                            Line linha = new Line("line_001", 0, 0, 100, 100, "black", "green", "3");
+                            linha.show();
+                            imagem.addShape(linha);
+                        }
+                        else if(forma == 1) {
+                            Rectangle retangulo = new Rectangle("ret_001", 15, 25, 30, 30, "white", "blue", "1");
+                            retangulo.show();
+                            imagem.addShape(retangulo);
+                        }
+                        else if(forma == 2) {
+                            Circle circulo = new Circle("circ_001", 50, 50, 10, "yellow", "black", "1");
+                            circulo.show();
+                            imagem.addShape(circulo);
+                        }
+                        else if(forma == 3) {
+                            int w = imagem.getDimensions()[0] / 2;
+                            int h = imagem.getDimensions()[1] / 2;
+                            Ponto ponto = new Ponto(w, h);
+                            System.out.println("Ponto criado com sucesso! Na posição (" + ponto.getX() + ", " + ponto.getY() + ")");
+                        }
+                    }
+                    else{
+                        System.out.println("Forma inválida!");
+                    }
+
+                    System.out.println("Deseja continuar a criar formas? (0 - sim; 1 - não)");
+                    resp2 = scan.nextInt();
+                }while(resp2 == 0);
+
+                System.out.println("Qual o caminho do ficheiro que deseja guardar?");
+                String caminho = scan.next();
+                imagem.saveSVG(caminho);
+
+                System.out.println("\nObrigada por utilizar este Software! Até à próxima.");
+            }
+            else{
+                System.out.println("Qual o caminho do ficheiro que deseja abrir?");
+                String caminho = scan.next();
+                openSVG(caminho);
+                //Image oepnImg = new Image(openSVG);
+                //image.show();
             }
         }
-*/
-        // CREATE NEW SVG FILE
-        String outPath = "SVG_files/new_02.svg";
-        Document doc = creatEmptySVG(outPath, 720/2, 720);
+
+        //============================================================================================
+        /*
+
         // READ FROM EXISTING SVG FILE
-        Element svg = openSVG(outPath);
 
-        // add element <circle>
-        Circle circle = new Circle("000", 10f, 20f, 15f, "green", "black", "3");
-        circle.addElement(svg, doc.createElement("circle"));
+        String inPath = "SVG_files/open_svg.svg";
+        openSVG(inPath);
 
-        // add element <rect>
+        //__________________________________________
+
+        // CREATE NEW SVG FILE
+
+        // 1. Create new image
+        Image newImage = new Image(100, 100);
+
+        // 2. Add shapes
+        Circle newCircle = new Circle("000", 10, 20, 80, "black", "black", "1");
+        newImage.addShape(newCircle);
+
         Rectangle rect = new Rectangle("001", 20f, 30f, 40f, 50f, "red", "black", "3");
-        rect.addElement(svg, doc.createElement("rect"));
+        newImage.addShape(rect);
 
-        // add element <line>
         Line line = new Line("002", 60f, 70f, 80f, 90f, "blue", "black", "3");
-        line.addElement(svg, doc.createElement("line"));
+        newImage.addShape(line);
+
+        // 3. Set path
+        String outPath = "SVG_files/new_03.svg";
+
+        // 4. Save image in new empty SVG file
+        newImage.saveSVG(outPath);
+         */
     }
 }
