@@ -1,4 +1,4 @@
-package formas;
+package shapes;
 
 public class Ponto {
     public float x = 0, y = 0;

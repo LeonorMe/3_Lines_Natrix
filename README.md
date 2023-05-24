@@ -9,7 +9,7 @@ Para a UC Modelação e Programação - java
 
 1. Back end
    1. Main (class)
-   2. formas (pakage)
+   2. shapes (pakage)
       1. Forma (abstract)
       2. FormasEnum (enum)
       3. Ponto
@@ -37,5 +37,5 @@ grafic interface
 elementos_graficos
 package root
 
-        // ver enumerados: array ? ter anumerado de formas >class forma >> classes filhas formas
+        // ver enumerados: array ? ter anumerado de shapes >class forma >> classes filhas shapes
 */

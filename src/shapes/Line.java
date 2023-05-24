@@ -1,4 +1,4 @@
-package formas;
+package shapes;
 
 import org.w3c.dom.Element;
 

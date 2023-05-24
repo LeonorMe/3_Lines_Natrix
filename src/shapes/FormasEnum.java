@@ -1,4 +1,4 @@
-package formas;
+package shapes;
 
 enum FormasEnum{
     Rectangle,

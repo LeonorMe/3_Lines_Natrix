@@ -1,12 +1,10 @@
-import formas.*;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import shapes.*;
 
 import java.util.Scanner;
 
-import static formas.Image.*;
+import static shapes.Image.*;
 
-public class Main { // TODO DTD
+public class Main {
 
     public static void main(String[] args) throws Exception{
         Scanner scan = new Scanner(System.in);
