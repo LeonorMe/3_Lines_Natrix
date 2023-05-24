@@ -1,8 +1,8 @@
 import shapes.*;
+import static shapes.Image.*;
 
 import java.util.Scanner;
 
-import static shapes.Image.*;
 
 public class Main {
 

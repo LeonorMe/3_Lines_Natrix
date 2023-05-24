@@ -2,7 +2,6 @@ package shapes;
 
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
-
 import java.io.*;
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
@@ -26,7 +25,7 @@ public class Image {
         return dimensions;
     }
 
-    ArrayList<AbstShape> getShapes(){
+    public ArrayList<AbstShape> getShapes(){
         return this.shapes;
     }
 
@@ -101,8 +100,8 @@ public class Image {
         return doc;
     }
 
+    /*
     public static void main(String[] args) throws Exception {
-        /*
         // READ FROM EXISTING SVG FILE
         String inPath = "SVG_files/open_svg.svg";
         openSVG(inPath);
@@ -118,6 +117,7 @@ public class Image {
         // 3. Save image in new empty SVG file
         String outPath = "SVG_files/new_01.svg";
         newImage.saveSVG(outPath);
-         */
+
     }
+    */
 }

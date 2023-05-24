@@ -3,11 +3,10 @@ package shapes;
 import org.w3c.dom.Element;
 
 public class Line extends AbstShape {
-    private String id="000";
     private float x2=0, y2=0;
 
-    public Line(String id, float x1, float y1, float x2, float y2, String fill, String stroke, String stroke_width) {
-        super.Forma(id, x1, y1, fill, stroke, stroke_width);
+    public Line(String id, float x1, float y1, float x2, float y2, String fill, String stroke, String strokeWidth) {
+        super.AbstShape(id, x1, y1, fill, stroke, strokeWidth);
         this.x2 = x2;
         this.y2 = y2;
     }
@@ -42,8 +41,10 @@ public class Line extends AbstShape {
         svg.appendChild(line);
     }
 
-    public static void main(String[] args) {
-        Line line = new Line("000", 10, 20, 15, 30, "black", "black", "1");
-        line.setX(0);
+    public void show(){
+        System.out.println("Line");
+        System.out.println("x2: " + this.x2);
+        System.out.println("y2: " + this.y2);
+        super.show();
     }
 }

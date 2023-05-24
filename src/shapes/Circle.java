@@ -4,11 +4,10 @@ import org.w3c.dom.Element;
 import javax.xml.parsers.ParserConfigurationException;
 
 public class Circle extends AbstShape {
-    private String id="000";
-    private float x=0, y=0, r=0;
+    private float r=0;
 
-    public Circle(String id, float x, float y, float r, String fill, String stroke, String stroke_width) throws ParserConfigurationException {
-        super.Forma(id, x, y, fill, stroke, stroke_width);
+    public Circle(String id, float x, float y, float r, String fill, String stroke, String strokeWidth) throws ParserConfigurationException {
+        super.AbstShape(id, x, y, fill, stroke, strokeWidth);
         this.r = r;
     }
 
@@ -17,12 +16,12 @@ public class Circle extends AbstShape {
     public String getType(){
         return "circle";
     }
-    float getR(){
+    public float getR(){
         return this.r;
     }
 
     // SET
-    void setR(int r){
+    public void setR(float r){
         this.r = r;
     }
 
@@ -35,14 +34,9 @@ public class Circle extends AbstShape {
         svg.appendChild(circle);
     }
 
-    public static void main(String[] args) throws ParserConfigurationException {
-        Circle circle = new Circle("000", 10, 20, 15, "white", "black", "1");
-        circle.setR(30);
-    }
-
     public void show(){
-        super.show();
         System.out.println("Circle");
         System.out.println("r: " + this.r);
+        super.show();
     }
 }
