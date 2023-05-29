@@ -1,10 +1,28 @@
 import painels.*;
 import javax.swing.*;
+import java.awt.*;
 import java.util.Scanner;
 
 public class Frame {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        String[] fontNames = {"Courier New", "Consolas", "Monospaced", "DejaVu Sans Mono", "Lucida Console", "Menlo", "Source Code Pro", "Ubuntu Mono"};
+        int fontSize = 14;
+
+        for (String fontName : fontNames) {
+            Font font = new Font(fontName, Font.PLAIN, fontSize);
+            JLabel label = new JLabel(fontName);
+            label.setFont(font);
+
+            JFrame frame = new JFrame("Font Example");
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setSize(200, 50);
+            frame.getContentPane().setLayout(new FlowLayout());
+            frame.getContentPane().add(label);
+            frame.setVisible(true);
+        }
+
+
+ /*        Scanner scanner = new Scanner(System.in);
 
         JFrame frame = new JFrame("3 Lines Natrix");
         frame.setSize(1920, 1018);
@@ -20,6 +38,7 @@ public class Frame {
         switch (painel){
             case 0:
                 frame.add(new Start()); // Open page
+
             case 1:
                 frame.add(new Create()); // Strat new project or open other
             case 2:
@@ -34,8 +53,10 @@ public class Frame {
                 frame.add(new Menu()); // Menu
             default:
                 frame.add(new Start());
+
+
         }
 
-        frame.setVisible(true);
+        frame.setVisible(true);*/
     }
 }

@@ -21,10 +21,10 @@ public abstract class AbstShape {
     String getId(){
         return this.id;
     }
-    float getX(){
+    public float getX(){
         return this.x;
     }
-    float getY(){
+    public float getY(){
         return this.y;
     }
     String getFill(){

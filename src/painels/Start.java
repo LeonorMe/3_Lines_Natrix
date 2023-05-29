@@ -8,8 +8,14 @@ import java.io.*;
 import java.awt.event.*;
 
 public class Start extends JPanel{
+    public static void main(String[] args) {
+        System.out.println("A iniciar...");
+    }
+}
 
 
+
+/*
 
     public Start() { // TODO
         JPanel startP = new JPanel();
@@ -31,12 +37,12 @@ public class Start extends JPanel{
         });
 
         // ADD SOUND
-        /*
+
         AudioInputStream stream = AudioSystem.getAudioInputStream(new File("ImperialMarch60.wav"));
         Clip clip = AudioSystem.getClip();
         clip.open(stream);
         clip.start();
-         */
+
     }
 
     @Override
@@ -93,4 +99,5 @@ public class Start extends JPanel{
 
         frame.setVisible(true);
     }
-}
+
+} */

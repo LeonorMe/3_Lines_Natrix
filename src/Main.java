@@ -1,3 +1,4 @@
+import painels.Info;
 import shapes.*;
 import static shapes.Image.*;
 
@@ -5,10 +6,13 @@ import java.util.Scanner;
 
 
 public class Main {
-
     public static void main(String[] args) throws Exception{
+        Info info = new Info();
+        info.show();
+
         Scanner scan = new Scanner(System.in);
-        System.out.println("Bem vindo ao SVG Editor - 3 Lines Natrix!" + "\nLeonor Medeiros - A50758" + "\nV0.5");
+
+
         System.out.println("Clic 1 to start, 0 to exit...");
         int resp0 = scan.nextInt();
 

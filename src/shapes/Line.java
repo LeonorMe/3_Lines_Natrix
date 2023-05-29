@@ -16,10 +16,10 @@ public class Line extends AbstShape {
     public String getType(){
         return "line";
     }
-    float getX2(){
+    public float getX2(){
         return this.x2;
     }
-    float getY2(){
+    public float getY2(){
         return this.y2;
     }
 
