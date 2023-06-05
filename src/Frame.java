@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class Frame {
     public static void main(String[] args) {
+        /*
         String[] fontNames = {"Courier New", "Consolas", "Monospaced", "DejaVu Sans Mono", "Lucida Console", "Menlo", "Source Code Pro", "Ubuntu Mono"};
         int fontSize = 14;
 
@@ -19,7 +20,7 @@ public class Frame {
             frame.getContentPane().setLayout(new FlowLayout());
             frame.getContentPane().add(label);
             frame.setVisible(true);
-        }
+        } */
 
 
  /*        Scanner scanner = new Scanner(System.in);

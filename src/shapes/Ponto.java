@@ -39,4 +39,12 @@ public class Ponto {
     public String toString() {
         return "(" + this.x + ", " + this.y + ")";
     }
+
+    public static void main(String[] args) {
+        Ponto A = new Ponto(3F,8.4f);
+
+        String a = A.toString();
+
+        System.out.println(a);
+    }
 }
