@@ -24,10 +24,10 @@ public class Line extends AbstShape {
     }
 
     // SET
-    void setX2(int x2){
+    public void setX2(int x2){
         this.x2 = x2;
     }
-    void setY2(int y2){
+    public void setY2(int y2){
         this.y2 = y2;
     }
 

@@ -6,9 +6,9 @@ import java.awt.*;
 
 public class Rodape extends JPanel {
     public Rodape() {
-        setBackground(Color.GRAY);
+        setBackground(Color.LIGHT_GRAY);
 
-        ImageIcon icon = new ImageIcon("Images/logo.png");
+        ImageIcon icon = new ImageIcon("Images/logoIcon.jpg");
         Image originalImage = icon.getImage();
         Image resizedImage = originalImage.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon resizedIcon = new ImageIcon(resizedImage);

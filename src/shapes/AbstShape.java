@@ -37,7 +37,7 @@ public abstract class AbstShape {
         return this.strokeWidth;
     }
     // SET
-    private void setId(String id){
+    public void setId(String id){
         this.id = id;
     }
     public void setX(float x){
@@ -55,6 +55,16 @@ public abstract class AbstShape {
     public void setStrokeWidth(String strokeWidth){
         this.strokeWidth = strokeWidth;
     }
+
+    /*
+    public void setAttributes(Element elem) {
+        elem.setAttribute("id", this.id);
+        //elem.setAttribute("x", Float.toString(this.x));
+        //elem.setAttribute("y", Float.toString(this.y));
+        elem.setAttribute("fill", this.fill);
+        elem.setAttribute("stroke", this.stroke);
+        elem.setAttribute("stroke-width", this.strokeWidth);
+    } */
 
     public void addElement(Element svg, Element elem) {
         elem.setAttribute("id", this.id);

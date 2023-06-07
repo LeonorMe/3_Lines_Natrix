@@ -1,122 +1,91 @@
 package painels;
 
-import shapes.*;
-import shapes.Rectangle;
+import org.xml.sax.SAXException;
 
 import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.io.IOException;
 
-public class Menu extends JPanel{
+import static painels.Create.addIsVisible;
+import static painels.Create.editIsVisible;
+import static shapes.Image.openSVG;
 
-    protected void paintComponent(Graphics g, Line line) {
-        super.paintComponent(g);
+public class Menu extends JPanel {
+    public static boolean addRemove = false;
+    public static boolean editRemove = false;
+        public Menu() {
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
 
-        g.drawLine((int) line.getX(), (int) line.getY(), (int) line.getX2(), (int) line.getY2());
-    }
+        setBackground(Color.LIGHT_GRAY);
+        //JLabel label1 = new JLabel("Painel 1");
+        //add(label1);
 
-    public Menu() {
-        Color darkGreen = Color.decode("#006400");
-        setBackground(darkGreen);
 
-        setPreferredSize(new Dimension(200, 100));
-
-        JPanel boxPanel = new JPanel();
-        boxPanel.setBackground(darkGreen);
-        boxPanel.setLayout(new BoxLayout(boxPanel, BoxLayout.Y_AXIS));
-        int verticalGap = 30;
-        boxPanel.add(Box.createVerticalStrut(verticalGap));
-
-        JLabel label_menu = new JLabel("Menu");
-        boxPanel.add(label_menu);
-
-        // buttons
-        JButton addLine = new JButton("Add Line");
-        JButton addCircle = new JButton("Add Circle");
-        JButton addRect = new JButton("Add Rectangle");
-
-        boxPanel.add(addLine);
-        boxPanel.add(addCircle);
-        boxPanel.add(addRect);
-
-        add(boxPanel);
-
-        addLine.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null, "Add Line");
-            int[] xy1 = {0,0};
-            int[] xy2 = {0,0};
-
-            addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    xy1[0] = e.getX();
-                    xy1[1] = e.getY();
-                }
-            });
-
-            addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    xy2[0] = e.getX();
-                    xy2[1] = e.getY();
-                }
-            });
-
-            Line line = new Line("Line", (float) xy1[0], (float) xy1[1], (float) xy2[0], (float)xy2[1], "black", "red", "12");
-            line.show();
-            paintComponent(getGraphics(), line);
-
+        // MENU BUTTON
+        Icon menuIcon = new ImageIcon("Images/menuIcon.jpg");
+        JButton menuButton = new JButton(menuIcon);
+        menuButton.addActionListener(e -> {
+            if(!addIsVisible)
+                frame.add(new Add());
+            else
+                addRemove = true;
         });
+        add(menuButton);
 
-        addCircle.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null, "Add Circle");
+        // SAVE BUTTON
+        Icon saveIcon = new ImageIcon("Images/saveIcon.jpg");
+        JButton saveButton = new JButton(saveIcon);
+        saveButton.addActionListener(e -> {
+            // receber caminho para a pasta
+            TextArea outPath = new TextArea("C:files/svgWork/paint001.svg", 1, 30);
+            String path = String.valueOf(outPath.getAccessibleContext());
+            // TODO
+            //image.saveSVG(path);
+
+            frame.add(new Load());
+
+            JOptionPane.showMessageDialog(null,
+                    "Save\n\n" + "Your work as been sucefully saved in\n" +
+                    path + "\n");
+        });
+        add(saveButton);
+
+        // OPEN BUTTON
+        Icon openIcon = new ImageIcon("Images/openIcon.jpg");
+        JButton openButton = new JButton(openIcon);
+        openButton.addActionListener(e -> {
+            // receber caminho para a pasta
+            TextArea inPath = new TextArea("C:files/svgWork/paint001.svg", 1, 30);
+            String path2 = String.valueOf(inPath.getAccessibleContext());
+            // TODO
             try {
-                Circle circle = new Circle("Circle", 0, 0, 0, "black", "red", "12");
-                circle.show();
+                openSVG(path2);
             } catch (ParserConfigurationException ex) {
                 throw new RuntimeException(ex);
-            }
-        });
-
-        addRect.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null, "Add Rectangle");
-            Rectangle rectangle = null;
-            try {
-                final int[] x = {0};
-                final int[] y = {0};
-                final int[] width = {0};
-                final int[] height = {0};
-
-                //x = Integer.parseInt(JOptionPane.showInputDialog("Enter x: "));
-                //y = Integer.parseInt(JOptionPane.showInputDialog("Enter y: "));
-
-                addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        x[0] = e.getX();
-                        y[0] = e.getY();
-                    }
-                });
-
-                addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        width[0] = e.getX();
-                        height[0] = e.getY();
-                    }
-                });
-
-                rectangle = new Rectangle("Rectangle", x[0], y[0], width[0], height[0], "black", "red", "12");
-                rectangle.show();
-
-                java.awt.Rectangle rect = new java.awt.Rectangle(x[0], y[0], width[0], height[0]);
-                Graphics2D g2d = (Graphics2D) getGraphics();
-                g2d.draw(rect);
-            } catch (ParserConfigurationException ex) {
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (SAXException ex) {
                 throw new RuntimeException(ex);
             }
+
+            JOptionPane.showMessageDialog(null,
+                    "Open\n\n" + "Your work as been sucefully opened from\n" +
+                            path2 + "\n");
         });
+        add(openButton);
+
+        // EDIT BUTTON
+        Icon editIcon = new ImageIcon("Images/editIcon.jpg");
+        JButton editButton = new JButton(editIcon);
+        editButton.addActionListener(e -> {
+            if(!editIsVisible)
+                frame.add(new Edit());
+            else
+                editRemove = true;
+
+        });
+        add(editButton);
+
     }
 }

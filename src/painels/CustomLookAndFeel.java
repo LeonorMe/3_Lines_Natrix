@@ -6,6 +6,11 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
 import java.awt.*;
 
 public class CustomLookAndFeel extends MetalLookAndFeel {
+    public final static Color darkGreen = Color.decode("#3B5323");
+    public final static Color green = Color.decode("#4B692F");
+    final static Color lightGreen = Color.decode("#7B9F47");
+    final static Color orange = Color.decode("#FFA500");
+
     @Override
     protected void initComponentDefaults(UIDefaults table) {
         super.initComponentDefaults(table);
@@ -38,7 +43,7 @@ public class CustomLookAndFeel extends MetalLookAndFeel {
         };
         UIManager.put("Button.border", roundedBorder);
         UIManager.put("Button.font", newFont);
-        UIManager.put("Button.background", Color.LIGHT_GRAY);
+        UIManager.put("Button.background", Color.WHITE);
 
     }
 }
