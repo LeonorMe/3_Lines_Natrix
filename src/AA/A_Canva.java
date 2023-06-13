@@ -7,10 +7,20 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
-
 import AA.A_Menu.*;
 import shapes.Image;
+
+import javax.swing.JPanel;
+
+/*
+* Canva to draw shapes
+*
+* @autor Leonor Medeiros
+* @version 1.0
+*
+*/
 
 public class A_Canva extends JPanel {
     public A_Canva() throws ParserConfigurationException {
@@ -23,6 +33,8 @@ public class A_Canva extends JPanel {
 
         int mode = AA.A_Menu.getDrawMode();
 
+        //List<Shape> shapes = new ArrayList<Shape>();
+        //shapes.add(new Ellipse2D.Double(0, 0, 100, 100));
 
         addMouseListener(new MouseAdapter() { // parte dos eventos
             ArrayList<Point> points = new ArrayList<>();
@@ -63,9 +75,20 @@ public class A_Canva extends JPanel {
     protected void paintComponent(Graphics g, int mode) { // parte da pintura
         super.paintComponent(g);
 
+        Graphics2D g2d = (Graphics2D)g.create();
+/*
+        for (Shape shape: shapes)
+        {
+            g2d.setColor( Color.RED );
+            g2d.fill( shape );
+        }
+        g2d.dispose();
+ */
+
+
         switch (mode) {
             case 0: // Point
-                g.drawOval(0,0,1,1);
+                //g.drawOval(0,0,1,1);
                 break;
             case 1: // Line
 
