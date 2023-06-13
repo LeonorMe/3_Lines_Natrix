@@ -7,19 +7,30 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.io.IOException;
 
-import static painels.Create.addIsVisible;
-import static painels.Create.editIsVisible;
+import static painels.createGUI.*;
 import static shapes.Image.openSVG;
 
 public class Menu extends JPanel {
     public static boolean addRemove = false;
     public static boolean editRemove = false;
+    public static boolean newRemove = false;
         public Menu() {
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
 
         setBackground(Color.LIGHT_GRAY);
         //JLabel label1 = new JLabel("Painel 1");
         //add(label1);
+
+        // NEW BUTTON
+        Icon newIcon = new ImageIcon("Images/newIcon.jpg");
+        JButton newButton = new JButton(newIcon);
+        newButton.addActionListener(e -> {
+            if(!newIsVisible)
+                frame.add(new New());
+            else
+                newRemove = true;
+        });
+        add(newButton);
 
 
         // MENU BUTTON

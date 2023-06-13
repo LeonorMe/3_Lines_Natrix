@@ -10,4 +10,3 @@ public class Canva extends JPanel {
         add(label2);
     }
 }
-

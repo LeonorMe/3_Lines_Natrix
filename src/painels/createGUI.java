@@ -3,9 +3,10 @@ package painels;
 import javax.swing.*;
 import java.awt.*;
 
-public class Create {//extends JPanel {
+public class createGUI {//extends JPanel {
     public static boolean addIsVisible = false;
     public static boolean editIsVisible = false;
+    public static boolean newIsVisible = false;
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {

@@ -37,7 +37,6 @@ public class Image {
     public void addShape(AbstShape shape){
         this.shapes.add(shape);
     }
-
     public void removeShape(AbstShape shape){
         this.shapes.remove(shape);
     }

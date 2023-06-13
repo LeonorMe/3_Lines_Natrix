@@ -8,8 +8,23 @@ import java.io.*;
 import java.awt.event.*;
 
 public class Start extends JPanel{
+    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
     public static void main(String[] args) {
-        System.out.println("A iniciar...");
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+
+                try {
+                    UIManager.setLookAndFeel(new CustomLookAndFeel());
+                    SwingUtilities.invokeLater(() -> {
+
+                        new createGUI();
+
+                    });
+                } catch (UnsupportedLookAndFeelException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }
 
