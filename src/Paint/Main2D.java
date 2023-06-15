@@ -7,13 +7,13 @@ import java.awt.*;
 import static beau.CustomLookAndFeel.*;
 
 public class Main2D {
-
+    JFrame mainFrame;
     public static void main(String[] args) {
         new Main2D().show();
     }
 
     public void show() {
-        JFrame mainFrame = new JFrame("2D Editor");
+        mainFrame = new JFrame("2D Editor");
         mainFrame.setSize(600, 200);
         mainFrame.getContentPane().setBackground(lightGreen);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

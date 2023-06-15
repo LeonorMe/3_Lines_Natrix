@@ -1,71 +1,100 @@
 package Paint;
 
-import org.xml.sax.SAXException;
-import painels.Add;
-import painels.Edit;
-import painels.Load;
-import painels.New;
+import beau.CustomLookAndFeel;
 
 import javax.swing.*;
-import javax.xml.parsers.ParserConfigurationException;
-import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.File;
 import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 
-import static painels.createGUI.*;
-import static shapes.Image.openSVG;
+import static Paint.DrawArea.imageSVG;
 
 public class Menu extends JPanel {
-    public static boolean addRemove = false;
-    public static boolean editRemove = false;
-    public static boolean newRemove = false;
         public Menu() {
-        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-
-        setBackground(Color.LIGHT_GRAY);
-        //JLabel label1 = new JLabel("Painel 1");
-        //add(label1);
+        setBackground(CustomLookAndFeel.lightGreen);
 
         // NEW BUTTON
         Icon newIcon = new ImageIcon("Images/newIcon.jpg");
         JButton newButton = new JButton(newIcon);
         newButton.addActionListener(e -> {
-            if(!newIsVisible)
-                frame.add(new New());
-            else
-                newRemove = true;
+            //String askNewWindow = JOptionPane.showInputDialog(null, "Do you want to open a new window? (Y/N)");
+            //if (askNewWindow.equals("N") || askNewWindow.equals("n")){
+             //   Paint.paintFrame.setVisible(false);
+            //}
+            //new Paint().show();
+            //Paint.main(null);
+            //Paint.paintFrame.setVisible(false);
+            resetProgram();
+
+            // new Main2D().mainFrame.setVisible(true);
         });
         add(newButton);
 
-
-        // MENU BUTTON
-        Icon menuIcon = new ImageIcon("Images/menuIcon.jpg");
-        JButton menuButton = new JButton(menuIcon);
-        menuButton.addActionListener(e -> {
-            if(!addIsVisible)
-                frame.add(new Add());
-            else
-                addRemove = true;
-        });
-        add(menuButton);
 
         // SAVE BUTTON
         Icon saveIcon = new ImageIcon("Images/saveIcon.jpg");
         JButton saveButton = new JButton(saveIcon);
         saveButton.addActionListener(e -> {
             // receber caminho para a pasta
-            TextArea outPath = new TextArea("C:files/svgWork/paint001.svg", 1, 30);
-            String path = String.valueOf(outPath.getAccessibleContext());
-            // TODO
-            //image.saveSVG(path);
+            //String outPath = JOptionPane.showInputDialog(null, "Save as (C:images/paint/paint001.jpg): ");
 
-            frame.add(new Load());
+            // Save image as .jpg
+            // Assuming you have a BufferedImage named 'image' that you want to save
 
-            JOptionPane.showMessageDialog(null,
-                    "Save\n\n" + "Your work as been sucefully saved in\n" +
-                    path + "\n");
+            // Create a file chooser to select the save location
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Save Image");
+
+            int userSelection = fileChooser.showSaveDialog(null);
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                // Get the selected file
+                File fileToSave = fileChooser.getSelectedFile();
+
+                // Ensure the file has the .jpg extension
+                String filePath = fileToSave.getAbsolutePath();
+                String svgPath = filePath;
+                if (!filePath.toLowerCase().endsWith(".jpg")) {
+                    fileToSave = new File(filePath + ".jpg");
+                }else {
+                    svgPath = filePath.substring(0, filePath.length() - 4);
+                }
+                svgPath = filePath + ".svg";
+
+                // SVG format
+                try {
+                    imageSVG.saveSVG(svgPath);
+                } catch (ParserConfigurationException ex) {
+                    throw new RuntimeException(ex);
+                } catch (TransformerException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                // JPG format
+                // Write the image to the file
+                try {
+                    ImageIO.write((RenderedImage) DrawArea.image, "jpg", fileToSave);
+                    JOptionPane.showMessageDialog(null, "Image saved successfully!");
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Error saving image: " + ex.getMessage());
+                }
+            }
+
+
+            // show image preview
+            //ImageIcon imageIcon = new ImageIcon(image));
+            //JLabel imageLabel = new JLabel(imageIcon);
+            //JOptionPane.showMessageDialog(null, imageLabel);
+
         });
         add(saveButton);
 
+/*
         // OPEN BUTTON
         Icon openIcon = new ImageIcon("Images/openIcon.jpg");
         JButton openButton = new JButton(openIcon);
@@ -89,18 +118,17 @@ public class Menu extends JPanel {
                             path2 + "\n");
         });
         add(openButton);
+*/
+    }
 
-        // EDIT BUTTON
-        Icon editIcon = new ImageIcon("Images/editIcon.jpg");
-        JButton editButton = new JButton(editIcon);
-        editButton.addActionListener(e -> {
-            if(!editIsVisible)
-                frame.add(new Edit());
-            else
-                editRemove = true;
-
-        });
-        add(editButton);
-
+    public static void resetProgram() {
+        Paint.paintFrame.setVisible(false);
+        Paint.paintFrame.dispose();
+        // Reset variables
+        DrawArea.image = new BufferedImage(1080, 720, BufferedImage.TYPE_INT_ARGB);
+        Paint.main(null);
+        // close program
+        System.exit(0);
+        // TODO
     }
 }

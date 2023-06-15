@@ -1,19 +1,14 @@
 package painels;
 
-import org.xml.sax.SAXException;
-import shapes.Circle;
 import shapes.Line;
 
 import javax.swing.*;
-import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 import static painels.CustomLookAndFeel.lightGreen;
 import static painels.Menu.editRemove;
-import static shapes.Image.openSVG;
 //import static sun.security.util.ObjectIdentifier.pack;
 
 public class Edit extends JPanel {

@@ -11,11 +11,11 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-public class Image {
+public class ImageSVG {
     private int width, height;
     private ArrayList<AbstShape> shapes = new ArrayList<AbstShape>();
 
-    public Image(int width, int height){
+    public ImageSVG(int width, int height){
         this.width = width;
         this.height = height;
     }

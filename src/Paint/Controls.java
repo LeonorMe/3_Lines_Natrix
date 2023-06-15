@@ -10,6 +10,10 @@ public class Controls extends JPanel {
     private JButton clearBtn, blackBtn, blueBtn, greenBtn, redBtn, whiteBtn, thicknessBtn, colorBtn, bgColorBtn;
     private JTextField setThickness;
 
+    JMenuBar shapesMenuBar;
+    JMenu shapesMenu;
+    JMenuItem line, circle, rectangle;
+
     ActionListener actionListener = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -24,20 +28,22 @@ public class Controls extends JPanel {
             } else if (e.getSource() == redBtn) {
                 Paint.drawArea.red();
             } else if (e.getSource() == whiteBtn) {
-                Paint.drawArea.white();
+                Paint.drawArea.rubber();
             } else if (e.getSource() == colorBtn) {
                 Paint.drawArea.otherColor();
             } else if (e.getSource() == thicknessBtn) {
                 Paint.drawArea.setThickness(Integer.parseInt(setThickness.getText()));
             } else if (e.getSource() == bgColorBtn) {
                 Paint.drawArea.setBgColor();
+            } else {
+                System.out.println("Error");
             }
         }
     };
 
     public Controls() {
         setBackground(Color.LIGHT_GRAY);
-        setLayout(new GridLayout(10, 1));
+        setLayout(new GridLayout(11, 1));
 
         clearBtn = new JButton("Clear");
         clearBtn.setBackground(Color.WHITE);
@@ -76,7 +82,27 @@ public class Controls extends JPanel {
         bgColorBtn = new JButton("Background Color");
         bgColorBtn.addActionListener(actionListener);
 
+
+        shapesMenuBar = new JMenuBar();
+        shapesMenu = new JMenu("Shapes");
+        line = new JMenuItem("Line");
+        circle = new JMenuItem("Circle");
+        rectangle = new JMenuItem("Rectangle");
+        shapesMenu.add(line); shapesMenu.add(circle); shapesMenu.add(rectangle);
+        shapesMenuBar.add(shapesMenu);
+
+        line.addActionListener(e -> {
+            Paint.drawArea.line();
+        });
+        circle.addActionListener(e -> {
+            Paint.drawArea.circle();
+        });
+        rectangle.addActionListener(e -> {
+            Paint.drawArea.rectangle();
+        });
+
         //add to panel
+        add(shapesMenuBar);
         add(clearBtn);
         add(whiteBtn);
         add(blackBtn);

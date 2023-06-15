@@ -9,7 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import shapes.Image;
+import shapes.ImageSVG;
 
 import javax.swing.JPanel;
 
@@ -27,7 +27,7 @@ public class A_Canva extends JPanel {
         JLabel label = new JLabel("Canva");
         add(label);
         int height = 200, width = 200;
-        Image image = new Image(height, width);
+        ImageSVG image = new ImageSVG(height, width);
         setSize(height, width);
 
         int mode = 0; //SVGPaint.A_Menu.getDrawMode();

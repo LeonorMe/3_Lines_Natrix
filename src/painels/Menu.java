@@ -8,7 +8,7 @@ import java.awt.*;
 import java.io.IOException;
 
 import static painels.createGUI.*;
-import static shapes.Image.openSVG;
+import static shapes.ImageSVG.openSVG;
 
 public class Menu extends JPanel {
     public static boolean addRemove = false;

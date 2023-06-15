@@ -1,6 +1,6 @@
 import painels.Info;
 import shapes.*;
-import static shapes.Image.*;
+import static shapes.ImageSVG.*;
 
 import java.util.Scanner;
 
@@ -28,7 +28,7 @@ public class Main {
                 System.out.println("Qual o tamanho da imagem que deseja criar? (largura x altura)");
                 int largura = scan.nextInt();
                 int altura = scan.nextInt();
-                Image imagem = new Image(largura, altura);
+                ImageSVG imagem = new ImageSVG(largura, altura);
                 System.out.println("Imagem criada com sucesso!");
 
                 int resp2=0;

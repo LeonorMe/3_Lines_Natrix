@@ -15,19 +15,23 @@ public class Paint {
     public static DrawArea drawArea;
     Controls controls;
     Menu menu;
+    public static JFrame paintFrame;
 
-    private Dimension imageSize = new Dimension(1080, 720);
+    private Dimension imageSize = new Dimension(1000, 800);
     public static void main(String[] args) {
         new Paint().show();
     }
 
     public void show(){
         //create main frame
-        JFrame frame = new JFrame("Swing Paint");
-        Container content = frame.getContentPane();
+        paintFrame = new JFrame("2D Paint");
+        Container content = paintFrame.getContentPane();
         content.setBackground(Color.DARK_GRAY);
         //set layout on content pane
         content.setLayout(new BorderLayout());
+
+        Icon icon = new ImageIcon("Images/logoIcon.jpg");
+        paintFrame.setIconImage(((ImageIcon) icon).getImage());
 
         // Ask for the size of the image
         getImageSize();
@@ -38,13 +42,14 @@ public class Paint {
         //add to content pane
         content.add(drawArea, BorderLayout.CENTER);
         content.add(controls, BorderLayout.EAST);
+        content.add(menu, BorderLayout.NORTH);
 
-        frame.setSize(1080, 720);
+        paintFrame.setSize(1080, 720);
         //can close frame
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        paintFrame.setLocationRelativeTo(null);
+        paintFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //show the swing paint result
-        frame.setVisible(true);
+        paintFrame.setVisible(true);
     }
 
     private void getImageSize() {
