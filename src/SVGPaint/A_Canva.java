@@ -1,4 +1,4 @@
-package AA;
+package SVGPaint;
 
 import shapes.*;
 
@@ -7,9 +7,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
-import AA.A_Menu.*;
+
 import shapes.Image;
 
 import javax.swing.JPanel;
@@ -31,7 +30,7 @@ public class A_Canva extends JPanel {
         Image image = new Image(height, width);
         setSize(height, width);
 
-        int mode = AA.A_Menu.getDrawMode();
+        int mode = 0; //SVGPaint.A_Menu.getDrawMode();
 
         //List<Shape> shapes = new ArrayList<Shape>();
         //shapes.add(new Ellipse2D.Double(0, 0, 100, 100));

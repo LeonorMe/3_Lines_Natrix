@@ -1,10 +1,10 @@
-package AA;
+package SVGPaint;
 
 import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 
-public class A {
+public class SVGPaint {
     private static void GUI() throws ParserConfigurationException {
         JFrame frame = new JFrame("SVG Software: 3 Lines Natrix");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

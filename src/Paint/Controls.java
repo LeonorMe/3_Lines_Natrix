@@ -7,33 +7,37 @@ import java.awt.event.ActionListener;
 
 public class Controls extends JPanel {
 
-    private JButton clearBtn, blackBtn, blueBtn, greenBtn, redBtn, whiteBtn, thicknessBtn, colorBtn;
+    private JButton clearBtn, blackBtn, blueBtn, greenBtn, redBtn, whiteBtn, thicknessBtn, colorBtn, bgColorBtn;
     private JTextField setThickness;
 
     ActionListener actionListener = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == clearBtn) {
-                SwingPaint.drawArea.clear();
+                Paint.drawArea.clear();
             } else if (e.getSource() == blackBtn) {
-                SwingPaint.drawArea.black();
+                Paint.drawArea.black();
             } else if (e.getSource() == blueBtn) {
-                SwingPaint.drawArea.blue();
+                Paint.drawArea.blue();
             } else if (e.getSource() == greenBtn) {
-                SwingPaint.drawArea.green();
+                Paint.drawArea.green();
             } else if (e.getSource() == redBtn) {
-                SwingPaint.drawArea.red();
+                Paint.drawArea.red();
             } else if (e.getSource() == whiteBtn) {
-                SwingPaint.drawArea.white();
+                Paint.drawArea.white();
             } else if (e.getSource() == colorBtn) {
-                SwingPaint.drawArea.otherColor();
+                Paint.drawArea.otherColor();
             } else if (e.getSource() == thicknessBtn) {
-                SwingPaint.drawArea.setThickness(Integer.parseInt(setThickness.getText()));
+                Paint.drawArea.setThickness(Integer.parseInt(setThickness.getText()));
+            } else if (e.getSource() == bgColorBtn) {
+                Paint.drawArea.setBgColor();
             }
         }
     };
 
     public Controls() {
+        setBackground(Color.LIGHT_GRAY);
+        setLayout(new GridLayout(10, 1));
 
         clearBtn = new JButton("Clear");
         clearBtn.setBackground(Color.WHITE);
@@ -69,6 +73,9 @@ public class Controls extends JPanel {
         thicknessBtn = new JButton("Size");
         thicknessBtn.addActionListener(actionListener);
 
+        bgColorBtn = new JButton("Background Color");
+        bgColorBtn.addActionListener(actionListener);
+
         //add to panel
         add(clearBtn);
         add(whiteBtn);
@@ -79,5 +86,6 @@ public class Controls extends JPanel {
         add(colorBtn);
         add(setThickness);
         add(thicknessBtn);
+        add(bgColorBtn);
     }
 }

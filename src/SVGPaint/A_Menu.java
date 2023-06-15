@@ -1,4 +1,4 @@
-package AA;
+package SVGPaint;
 
 import javax.swing.*;
 import java.awt.*;

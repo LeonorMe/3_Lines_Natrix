@@ -8,14 +8,16 @@ import java.awt.event.MouseMotionAdapter;
 import javax.swing.*;
 
 public class DrawArea extends JComponent{
-    // Image in which we're going to draw
     private Image image;
-    // Graphics2D object ==> used to draw on
     private Graphics2D g2;
-    // Mouse coordinates
-    private int currentX, currentY, oldX, oldY;
+    private int currentX, currentY, oldX, oldY; // Mouse coordinates
 
-    public DrawArea() {
+    private Dimension imageSize  = new Dimension(1080, 720);
+
+    public DrawArea(Dimension imageSize) {
+        this.imageSize = imageSize;
+        //shapes.Image image = new shapes.Image(imageSize.width, imageSize.height);
+
         setDoubleBuffered(false); // ?
         addMouseListener(new MouseAdapter() { // ?
 
@@ -46,8 +48,8 @@ public class DrawArea extends JComponent{
 
     protected void paintComponent(Graphics g) {
         if (image == null) {
-            // image to draw null ==> we create
-            image = createImage(getSize().width, getSize().height);
+            // image to draw null
+            image = createImage(this.imageSize.width, this.imageSize.height);
             g2 = (Graphics2D) image.getGraphics();
             // enable antialiasing
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -93,5 +95,12 @@ public class DrawArea extends JComponent{
 
     public void setThickness(int size) {
         g2.setStroke(new BasicStroke(size));
+    }
+
+    public void setBgColor() {
+        g2.setPaint(JColorChooser.showDialog(null, "Choose a color", Color.WHITE));
+        g2.fillRect(0, 0, getSize().width, getSize().height);
+        g2.setPaint(Color.black);
+        repaint();
     }
 }
