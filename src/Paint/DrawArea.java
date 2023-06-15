@@ -1,20 +1,13 @@
-package AA;
+package Paint;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
-import javax.swing.JComponent;
+import javax.swing.*;
 
-/*
-* Component for drawing !
-*
-* @autor: Leonor Medeiros
-*
-*/
-
-public class A_DrawArea extends JComponent{
+public class DrawArea extends JComponent{
     // Image in which we're going to draw
     private Image image;
     // Graphics2D object ==> used to draw on
@@ -22,7 +15,7 @@ public class A_DrawArea extends JComponent{
     // Mouse coordinates
     private int currentX, currentY, oldX, oldY;
 
-    public A_DrawArea() {
+    public DrawArea() {
         setDoubleBuffered(false); // ?
         addMouseListener(new MouseAdapter() { // ?
 
@@ -82,8 +75,8 @@ public class A_DrawArea extends JComponent{
         g2.setPaint(Color.black);
     }
 
-    public void magenta() {
-        g2.setPaint(Color.magenta);
+    public void white() {
+        g2.setPaint(Color.white);
     }
 
     public void green() {
@@ -94,5 +87,11 @@ public class A_DrawArea extends JComponent{
         g2.setPaint(Color.blue);
     }
 
-    // Now, we're going to create main part of the program to use the draw area
+    public void otherColor() {
+        g2.setPaint(JColorChooser.showDialog(null, "Choose a color", Color.BLACK));
+    }
+
+    public void setThickness(int size) {
+        g2.setStroke(new BasicStroke(size));
+    }
 }
