@@ -6,8 +6,8 @@ import javax.xml.parsers.ParserConfigurationException;
 public class Rectangle extends AbstShape {
     private float width=0, height=0;
 
-    public Rectangle(String id, float x, float y, float width, float height, String fill, String stroke, String strokeWidth) throws ParserConfigurationException {
-        super.AbstShape(id, x, y, fill, stroke, strokeWidth);
+    public Rectangle(String id, float x, float y, float width, float height, String style) {
+        super.AbstShape(id, x, y, style);
         this.width = width;
         this.height = height;
     }

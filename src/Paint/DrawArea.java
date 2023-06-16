@@ -7,7 +7,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import javax.swing.*;
-import javax.xml.parsers.ParserConfigurationException;
 
 public class DrawArea extends JComponent{
     public static Image image;
@@ -74,11 +73,6 @@ public class DrawArea extends JComponent{
         repaint();
     }
 
-    public void red() {
-        // apply red color on g2 context
-        g2.setPaint(Color.red);
-    }
-
     public void black() {
         g2.setPaint(Color.black);
     }
@@ -91,8 +85,8 @@ public class DrawArea extends JComponent{
         g2.setPaint(Color.green);
     }
 
-    public void blue() {
-        g2.setPaint(Color.blue);
+    public void gray() {
+        g2.setPaint(Color.gray);
     }
 
     public void otherColor() {
@@ -114,25 +108,31 @@ public class DrawArea extends JComponent{
     public void line() {
         g2.drawLine(oldX, oldY, currentX, currentY);
         repaint();
-        imageSVG.addShape(new shapes.Line("000",oldX, oldY, currentX, currentY, "WHITE", g2.getPaint().toString() ,g2.getStroke().toString()));
+        imageSVG.addShape(new shapes.Line("000",oldX, oldY, currentX, currentY, getStyle()));
     }
     public void circle() {
         g2.drawOval(oldX, oldY, currentX, currentY);
         repaint();
         int raio = (int) Math.sqrt(currentX*currentX+currentY*currentY);
-        try {
-            imageSVG.addShape(new Circle("000",oldX, oldY, raio, "WHITE", g2.getPaint().toString() ,g2.getStroke().toString()));
-        } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e);
-        }
+        //g2.getPaint().toString() ,g2.getStroke().toString()
+        imageSVG.addShape(new shapes.Circle("000",oldX, oldY, raio, getStyle()));
     }
     public void rectangle() {
         g2.drawRect(oldX, oldY, currentX, currentY);
         repaint();
-        try {
-            imageSVG.addShape(new shapes.Rectangle("000",oldX, oldY, currentX, currentY, "WHITE", g2.getPaint().toString() ,g2.getStroke().toString()));
-        } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e);
-        }
+        imageSVG.addShape(new shapes.Rectangle("000",oldX, oldY, currentX, currentY, getStyle()));
     }
+
+    public String getStyle(){
+        //"stroke:black;stroke-width:1"
+        return g2.getPaint().toString() + ";" + g2.getStroke().toString();
+    }
+
+    public void setStyle(String style){
+        String[] parts = style.split(";");
+        g2.setPaint(Color.decode(parts[0].split(":")[1]));
+        g2.setStroke(new BasicStroke(Integer.parseInt(parts[1].split(":")[1])));
+        //g2.fill();
+    }
+
 }

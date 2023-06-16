@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class Controls extends JPanel {
 
-    private JButton clearBtn, blackBtn, blueBtn, greenBtn, redBtn, whiteBtn, thicknessBtn, colorBtn, bgColorBtn;
+    private JButton clearBtn, blackBtn, grayBtn, greenBtn, rubberBtn, thicknessBtn, colorBtn, bgColorBtn, styleBtn;
     private JTextField setThickness;
 
     JMenuBar shapesMenuBar;
@@ -21,13 +21,11 @@ public class Controls extends JPanel {
                 Paint.drawArea.clear();
             } else if (e.getSource() == blackBtn) {
                 Paint.drawArea.black();
-            } else if (e.getSource() == blueBtn) {
-                Paint.drawArea.blue();
+            } else if (e.getSource() == grayBtn) {
+                Paint.drawArea.gray();
             } else if (e.getSource() == greenBtn) {
                 Paint.drawArea.green();
-            } else if (e.getSource() == redBtn) {
-                Paint.drawArea.red();
-            } else if (e.getSource() == whiteBtn) {
+            } else if (e.getSource() == rubberBtn) {
                 Paint.drawArea.rubber();
             } else if (e.getSource() == colorBtn) {
                 Paint.drawArea.otherColor();
@@ -35,8 +33,18 @@ public class Controls extends JPanel {
                 Paint.drawArea.setThickness(Integer.parseInt(setThickness.getText()));
             } else if (e.getSource() == bgColorBtn) {
                 Paint.drawArea.setBgColor();
+            } else if (e.getSource() == line) {
+                Paint.drawArea.line();
+            } else if (e.getSource() == circle) {
+                Paint.drawArea.circle();
+            } else if (e.getSource() == rectangle) {
+                Paint.drawArea.rectangle();
+            } else if (e.getSource() == styleBtn) {
+                //String styleInput = JOptionPane.showInputDialog("Enter style (stroke:black;stroke-width:1): ");
+                String styleInput = new styleControls().getStyle();
+                Paint.drawArea.setStyle(styleInput);
             } else {
-                System.out.println("Error");
+                    System.out.println("Error");
             }
         }
     };
@@ -50,26 +58,23 @@ public class Controls extends JPanel {
         clearBtn.setSize(60, 40);
         clearBtn.addActionListener(actionListener);
 
-        whiteBtn = new JButton("Rubber");
-        whiteBtn.setBackground(Color.WHITE);
-        whiteBtn.addActionListener(actionListener);
+        rubberBtn = new JButton("Rubber");
+        rubberBtn.setBackground(Color.WHITE);
+        rubberBtn.addActionListener(actionListener);
 
         blackBtn = new JButton("Black");
         blackBtn.setBackground(Color.BLACK);
         blackBtn.setForeground(Color.WHITE);
         blackBtn.addActionListener(actionListener);
 
-        blueBtn = new JButton("Blue");
-        blueBtn.setBackground(Color.BLUE);
-        blueBtn.addActionListener(actionListener);
+        grayBtn = new JButton("Gray");
+        grayBtn.setBackground(Color.BLUE);
+        grayBtn.addActionListener(actionListener);
 
         greenBtn = new JButton("Green");
         greenBtn.setBackground(Color.GREEN);
         greenBtn.addActionListener(actionListener);
 
-        redBtn = new JButton("Red");
-        redBtn.setBackground(Color.RED);
-        redBtn.addActionListener(actionListener);
 
         colorBtn = new JButton("Other Color");
         colorBtn.addActionListener(actionListener);
@@ -82,7 +87,6 @@ public class Controls extends JPanel {
         bgColorBtn = new JButton("Background Color");
         bgColorBtn.addActionListener(actionListener);
 
-
         shapesMenuBar = new JMenuBar();
         shapesMenu = new JMenu("Shapes");
         line = new JMenuItem("Line");
@@ -90,28 +94,25 @@ public class Controls extends JPanel {
         rectangle = new JMenuItem("Rectangle");
         shapesMenu.add(line); shapesMenu.add(circle); shapesMenu.add(rectangle);
         shapesMenuBar.add(shapesMenu);
+        line.addActionListener(actionListener);
+        circle.addActionListener(actionListener);
+        rectangle.addActionListener(actionListener);
 
-        line.addActionListener(e -> {
-            Paint.drawArea.line();
-        });
-        circle.addActionListener(e -> {
-            Paint.drawArea.circle();
-        });
-        rectangle.addActionListener(e -> {
-            Paint.drawArea.rectangle();
-        });
+
+        styleBtn = new JButton("Style");
+        styleBtn.addActionListener(actionListener);
 
         //add to panel
         add(shapesMenuBar);
         add(clearBtn);
-        add(whiteBtn);
+        add(rubberBtn);
         add(blackBtn);
-        add(blueBtn);
+        add(grayBtn);
         add(greenBtn);
-        add(redBtn);
         add(colorBtn);
         add(setThickness);
         add(thicknessBtn);
         add(bgColorBtn);
+        add(styleBtn);
     }
 }

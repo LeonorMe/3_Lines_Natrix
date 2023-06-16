@@ -5,8 +5,8 @@ import org.w3c.dom.Element;
 public class Line extends AbstShape {
     private float x2=0, y2=0;
 
-    public Line(String id, float x1, float y1, float x2, float y2, String fill, String stroke, String strokeWidth) {
-        super.AbstShape(id, x1, y1, fill, stroke, strokeWidth);
+    public Line(String id, float x1, float y1, float x2, float y2, String style) {
+        super.AbstShape(id, x1, y1, style);
         this.x2 = x2;
         this.y2 = y2;
     }

@@ -66,7 +66,7 @@ public class Add extends JPanel{
                 }
             });
 
-            Line line = new Line("Line", (float) xy1[0], (float) xy1[1], (float) xy2[0], (float)xy2[1], "black", "red", "12");
+            Line line = new Line("Line", (float) xy1[0], (float) xy1[1], (float) xy2[0], (float)xy2[1], "stroke:black;stroke-width:5");
             line.show();
             paintComponent(getGraphics(), line);
 
@@ -74,18 +74,13 @@ public class Add extends JPanel{
 
         addCircle.addActionListener(e -> {
             JOptionPane.showMessageDialog(null, "Add Circle");
-            try {
-                Circle circle = new Circle("Circle", 0, 0, 0, "black", "red", "12");
-                circle.show();
-            } catch (ParserConfigurationException ex) {
-                throw new RuntimeException(ex);
-            }
+            Circle circle = new Circle("Circle", 0, 0, 0, "stroke:black;stroke-width:5");
+            circle.show();
         });
 
         addRect.addActionListener(e -> {
             JOptionPane.showMessageDialog(null, "Add Rectangle");
             Rectangle rectangle = null;
-            try {
                 final int[] x = {0};
                 final int[] y = {0};
                 final int[] width = {0};
@@ -110,15 +105,12 @@ public class Add extends JPanel{
                     }
                 });
 
-                rectangle = new Rectangle("Rectangle", x[0], y[0], width[0], height[0], "black", "red", "12");
+                rectangle = new Rectangle("Rectangle", x[0], y[0], width[0], height[0], "stroke:black;stroke-width:5");
                 rectangle.show();
 
                 java.awt.Rectangle rect = new java.awt.Rectangle(x[0], y[0], width[0], height[0]);
                 Graphics2D g2d = (Graphics2D) getGraphics();
                 g2d.draw(rect);
-            } catch (ParserConfigurationException ex) {
-                throw new RuntimeException(ex);
-            }
         });
 
         setVisible(true);

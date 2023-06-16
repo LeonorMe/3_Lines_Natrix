@@ -12,16 +12,16 @@ import static painels.Menu.editRemove;
 //import static sun.security.util.ObjectIdentifier.pack;
 
 public class Edit extends JPanel {
-    private JTextField answerField_Id, answerField_X1, answerField_y1, answerField_x2, answerField_y2, answerField_stroke, answerField_fill;
+    private JTextField answerField_Id, answerField_X1, answerField_y1, answerField_x2, answerField_y2, answerField_style;
     private JButton saveButton;
-    private JLabel questionLabel_Id, questionLabel_X1, questionLabel_y1, questionLabel_x2, questionLabel_y2, questionLabel_stroke, questionLabel_fill;
+    private JLabel questionLabel_Id, questionLabel_X1, questionLabel_y1, questionLabel_x2, questionLabel_y2, questionLabel_style;
     public Edit() {
         setBackground(lightGreen);
         //JLabel label1 = new JLabel("Edit");
         //add(label1);
 
         // TODO get object cliced
-        Line line = new Line("001", 0, 0, 50, 50, "black", "5", "none");
+        Line line = new Line("001", 0, 0, 50, 50, "stroke:black;stroke-width:1");
 
         setLayout(new GridLayout(9, 2));
 
@@ -36,10 +36,8 @@ public class Edit extends JPanel {
         answerField_x2 = new JTextField(4);
         questionLabel_y2 = new JLabel("y2:");
         answerField_y2 = new JTextField(4);
-        questionLabel_stroke = new JLabel("stroke:");
-        answerField_stroke = new JTextField(4);
-        questionLabel_fill = new JLabel("fill:");
-        answerField_fill = new JTextField(6);
+        questionLabel_style = new JLabel("style:");
+        answerField_style = new JTextField(10);
 
         saveButton = new JButton("Save");
 
@@ -54,10 +52,8 @@ public class Edit extends JPanel {
         add(answerField_x2);
         add(questionLabel_y2);
         add(answerField_y2);
-        add(questionLabel_stroke);
-        add(answerField_stroke);
-        add(questionLabel_fill);
-        add(answerField_fill);
+        add(questionLabel_style);
+        add(answerField_style);
 
         add(new JLabel());
         add(saveButton);
@@ -70,8 +66,7 @@ public class Edit extends JPanel {
                 int answer_y1 = Integer.parseInt(answerField_y1.getText());
                 int answer_x2 = Integer.parseInt(answerField_x2.getText());
                 int answer_y2 = Integer.parseInt(answerField_y2.getText());
-                String answer_stroke = answerField_stroke.getText();
-                String answer_fill = answerField_fill.getText();
+                String answer_style = answerField_style.getText();
 
                 // Do something with the answers
                 line.setId(answer_Id);
@@ -79,8 +74,7 @@ public class Edit extends JPanel {
                 line.setY(answer_y1);
                 line.setX2(answer_x2);
                 line.setY2(answer_y2);
-                line.setStroke(answer_stroke);
-                line.setFill(answer_fill);
+                line.setStyle(answer_style);
             }
         });
 

@@ -4,16 +4,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public abstract class AbstShape {
-    private String id="000", fill="#000", stroke="#fff", strokeWidth="1";
+    private String id="000", style="";
     private float x=0, y=0;
 
-    public void AbstShape(String id, float x, float y, String fill, String stroke, String strokeWidth){
+    public void AbstShape(String id, float x, float y, String style){
         this.id = id;
         this.x = x;
         this.y = y;
-        this.fill = fill;
-        this.stroke = stroke;
-        this.strokeWidth = strokeWidth;
+        this.style = style;
     }
 
     // GET
@@ -27,14 +25,8 @@ public abstract class AbstShape {
     public float getY(){
         return this.y;
     }
-    String getFill(){
-        return this.fill;
-    }
-    String getStroke(){
-        return this.stroke;
-    }
-    String getStrokeWidth(){
-        return this.strokeWidth;
+    String getStyle(){
+        return this.style;
     }
     // SET
     public void setId(String id){
@@ -46,14 +38,8 @@ public abstract class AbstShape {
     public void setY(float y){
         this.y = y;
     }
-    public void setFill(String fill){
-        this.fill = fill;
-    }
-    public void setStroke(String stroke){
-        this.stroke = stroke;
-    }
-    public void setStrokeWidth(String strokeWidth){
-        this.strokeWidth = strokeWidth;
+    public void setStyle(String style){
+        this.style = style;
     }
 
     /*
@@ -61,18 +47,14 @@ public abstract class AbstShape {
         elem.setAttribute("id", this.id);
         //elem.setAttribute("x", Float.toString(this.x));
         //elem.setAttribute("y", Float.toString(this.y));
-        elem.setAttribute("fill", this.fill);
-        elem.setAttribute("stroke", this.stroke);
-        elem.setAttribute("stroke-width", this.strokeWidth);
+        elem.setAttribute("style", this.style);
     } */
 
     public void addElement(Element svg, Element elem) {
         elem.setAttribute("id", this.id);
         //elem.setAttribute("x", Float.toString(this.x));
         //elem.setAttribute("y", Float.toString(this.y));
-        elem.setAttribute("fill", this.fill);
-        elem.setAttribute("stroke", this.stroke);
-        elem.setAttribute("stroke-width", this.strokeWidth);
+        elem.setAttribute("style", this.style);
 
         svg.appendChild(elem);
     }
@@ -86,8 +68,6 @@ public abstract class AbstShape {
         System.out.println("ID: " + this.id);
         //System.out.println("X: " + this.x);
         //System.out.println("Y: " + this.y);
-        System.out.println("Fill: " + this.fill);
-        System.out.println("Stroke: " + this.stroke);
-        System.out.println("Stroke-width: " + this.strokeWidth);
+        System.out.println("Style: " + this.style);
     }
 }

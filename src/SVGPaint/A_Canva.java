@@ -52,7 +52,7 @@ public class A_Canva extends JPanel {
                     case 0: // Line
                         int ps = points.size();
                         System.out.println("Line");
-                        Line line = new Line("line",points.get(ps-2).x, points.get(ps-2).y, points.get(ps-1).x, points.get(ps -2).y, "black", "blck", "20");
+                        Line line = new Line("line",points.get(ps-2).x, points.get(ps-2).y, points.get(ps-1).x, points.get(ps -2).y, "stroke:black;stroke-width:1");
                         image.addShape(line);
                         Graphics g = null;
                         paintComponent(g, mode);

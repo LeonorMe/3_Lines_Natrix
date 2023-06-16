@@ -38,17 +38,17 @@ public class Main {
 
                     if (forma < 4 && forma >= 0) {
                         if(forma == 0) {
-                            Line linha = new Line("line_001", 0, 0, 100, 100, "black", "green", "3");
+                            Line linha = new Line("line_001", 0, 0, 100, 100, "stroke:blue;stroke-width:10");
                             linha.show();
                             imagem.addShape(linha);
                         }
                         else if(forma == 1) {
-                            Rectangle retangulo = new Rectangle("ret_001", 15, 25, 30, 30, "white", "blue", "1");
+                            Rectangle retangulo = new Rectangle("ret_001", 15, 25, 30, 30, "stroke:black;stroke-width:5;fill:green");
                             retangulo.show();
                             imagem.addShape(retangulo);
                         }
                         else if(forma == 2) {
-                            Circle circulo = new Circle("circ_001", 50, 50, 10, "yellow", "black", "1");
+                            Circle circulo = new Circle("circ_001", 50, 50, 10, "stroke:white;stroke-width:3;opacity:0.5;fill:red");
                             circulo.show();
                             imagem.addShape(circulo);
                         }
@@ -83,7 +83,7 @@ public class Main {
         }
 
         //============================================================================================
-        /*
+
 
         // READ FROM EXISTING SVG FILE
 
@@ -95,16 +95,16 @@ public class Main {
         // CREATE NEW SVG FILE
 
         // 1. Create new image
-        Image newImage = new Image(100, 100);
+        ImageSVG newImage = new ImageSVG(100, 100);
 
         // 2. Add shapes
-        Circle newCircle = new Circle("000", 10, 20, 80, "black", "black", "1");
+        Circle newCircle = new Circle("000", 10, 20, 80, "stroke:black;stroke-width:5;fill:green");
         newImage.addShape(newCircle);
 
-        Rectangle rect = new Rectangle("001", 20f, 30f, 40f, 50f, "red", "black", "3");
+        Rectangle rect = new Rectangle("001", 20f, 30f, 40f, 50f, "stroke:black;stroke-width:5;fill:green");
         newImage.addShape(rect);
 
-        Line line = new Line("002", 60f, 70f, 80f, 90f, "blue", "black", "3");
+        Line line = new Line("002", 60f, 70f, 80f, 90f, "stroke:black;stroke-width:5;fill:green");
         newImage.addShape(line);
 
         // 3. Set path
@@ -112,6 +112,5 @@ public class Main {
 
         // 4. Save image in new empty SVG file
         newImage.saveSVG(outPath);
-         */
     }
 }

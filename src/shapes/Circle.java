@@ -6,8 +6,8 @@ import javax.xml.parsers.ParserConfigurationException;
 public class Circle extends AbstShape {
     private float r=0;
 
-    public Circle(String id, float x, float y, float r, String fill, String stroke, String strokeWidth) throws ParserConfigurationException {
-        super.AbstShape(id, x, y, fill, stroke, strokeWidth);
+    public Circle(String id, float x, float y, float r, String style) {
+        super.AbstShape(id, x, y, style);
         this.r = r;
     }
 

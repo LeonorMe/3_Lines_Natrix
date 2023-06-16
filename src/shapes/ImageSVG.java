@@ -110,7 +110,7 @@ public class ImageSVG {
         Image newImage = new Image(500, 500);
 
         // 2. Add shapes
-        Circle newCircle = new Circle("000", 10, 20, 80, "black", "black", "1");
+        Circle newCircle = new Circle("000", 10, 20, 80, "fill:red;stroke:black;stroke-width:5;opacity:0.5");
         newImage.addShape(newCircle);
 
         // 3. Save image in new empty SVG file
