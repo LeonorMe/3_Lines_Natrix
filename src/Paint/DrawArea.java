@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.Locale;
 import javax.swing.*;
 
 public class DrawArea extends JComponent{
@@ -130,8 +131,15 @@ public class DrawArea extends JComponent{
 
     public void setStyle(String style){
         String[] parts = style.split(";");
+
+        // Strocke
+        System.out.println(parts[0].split(":")[1]);
         g2.setPaint(Color.decode(parts[0].split(":")[1]));
-        g2.setStroke(new BasicStroke(Integer.parseInt(parts[1].split(":")[1])));
+
+        // Strocke-width
+        System.out.println(Integer.parseInt(parts[1].split(":")[1]));
+        setThickness(Integer.parseInt((parts[1].split(":")[1])));
+
         //g2.fill();
     }
 

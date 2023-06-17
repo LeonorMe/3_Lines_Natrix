@@ -1,6 +1,7 @@
 package Paint;
 
 import beau.CustomLookAndFeel;
+import org.xml.sax.SAXException;
 
 import javax.swing.*;
 import java.awt.image.BufferedImage;
@@ -14,6 +15,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
 import static Paint.DrawArea.imageSVG;
+import static shapes.ImageSVG.openSVG;
 
 public class Menu extends JPanel {
         public Menu() {
@@ -94,15 +96,14 @@ public class Menu extends JPanel {
         });
         add(saveButton);
 
-/*
+
         // OPEN BUTTON
         Icon openIcon = new ImageIcon("Images/openIcon.jpg");
         JButton openButton = new JButton(openIcon);
         openButton.addActionListener(e -> {
             // receber caminho para a pasta
-            TextArea inPath = new TextArea("C:files/svgWork/paint001.svg", 1, 30);
+            JTextArea inPath = new JTextArea("C:files/svgWork/paint001.svg", 1, 30);
             String path2 = String.valueOf(inPath.getAccessibleContext());
-            // TODO
             try {
                 openSVG(path2);
             } catch (ParserConfigurationException ex) {
@@ -118,7 +119,7 @@ public class Menu extends JPanel {
                             path2 + "\n");
         });
         add(openButton);
-*/
+
     }
 
     public static void resetProgram() {

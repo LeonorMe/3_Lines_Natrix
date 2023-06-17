@@ -41,7 +41,8 @@ public class Controls extends JPanel {
                 Paint.drawArea.rectangle();
             } else if (e.getSource() == styleBtn) {
                 //String styleInput = JOptionPane.showInputDialog("Enter style (stroke:black;stroke-width:1): ");
-                String styleInput = new styleControls().getStyle();
+                //String styleInput = new styleControls().getStyle();
+                String styleInput = JOptionPane.showInputDialog("Enter style (stroke:#000;stroke-width:1) ");
                 Paint.drawArea.setStyle(styleInput);
             } else {
                     System.out.println("Error");
@@ -68,7 +69,7 @@ public class Controls extends JPanel {
         blackBtn.addActionListener(actionListener);
 
         grayBtn = new JButton("Gray");
-        grayBtn.setBackground(Color.BLUE);
+        grayBtn.setBackground(Color.GRAY);
         grayBtn.addActionListener(actionListener);
 
         greenBtn = new JButton("Green");

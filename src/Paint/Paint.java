@@ -53,9 +53,9 @@ public class Paint {
     }
 
     private void getImageSize() {
-        String askWidth = JOptionPane.showInputDialog(null, "Enter the Width of the image:");
-        this.imageSize.width = Integer.parseInt(askWidth);
-        String askHeight = JOptionPane.showInputDialog(null, "Enter the Height of the image:");
-        this.imageSize.height = Integer.parseInt(askHeight);
+        String askSize = JOptionPane.showInputDialog(null, "Enter the Width*Height of the image (1000x800):");
+        String[] parts = askSize.split("x"); // Integer.parseInt(askSize);
+        this.imageSize.width = Integer.parseInt(parts[0]);
+        this.imageSize.height = Integer.parseInt(parts[1]);
     }
 }
