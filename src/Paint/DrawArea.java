@@ -6,7 +6,6 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.util.Locale;
 import javax.swing.*;
 
 public class DrawArea extends JComponent{
@@ -15,7 +14,7 @@ public class DrawArea extends JComponent{
     private Graphics2D g2;
     private int currentX, currentY, oldX, oldY; // Mouse coordinates
 
-    private Color bgColor = Color.WHITE;
+    private Color bgColor = Color.WHITE, lastColor = Color.BLACK;
 
     private Dimension imageSize  = new Dimension(1080, 720);
 
@@ -76,6 +75,7 @@ public class DrawArea extends JComponent{
 
     public void black() {
         g2.setPaint(Color.black);
+        lastColor = Color.black;
     }
 
     public void rubber() {
@@ -84,14 +84,18 @@ public class DrawArea extends JComponent{
 
     public void green() {
         g2.setPaint(Color.green);
+        lastColor = Color.green;
     }
 
     public void gray() {
         g2.setPaint(Color.gray);
+        lastColor = Color.gray;
     }
 
     public void otherColor() {
-        g2.setPaint(JColorChooser.showDialog(null, "Choose a color", Color.BLACK));
+        lastColor = JColorChooser.showDialog(null, "Choose a color", lastColor);
+        g2.setPaint(lastColor);
+
     }
 
     public void setThickness(int size) {
@@ -132,13 +136,23 @@ public class DrawArea extends JComponent{
     public void setStyle(String style){
         String[] parts = style.split(";");
 
-        // Strocke
-        System.out.println(parts[0].split(":")[1]);
-        g2.setPaint(Color.decode(parts[0].split(":")[1]));
+        String type, value;
+        for(String part : parts){
+            type = part.split(":")[0];
+            value = part.split(":")[1];
 
-        // Strocke-width
-        System.out.println(Integer.parseInt(parts[1].split(":")[1]));
-        setThickness(Integer.parseInt((parts[1].split(":")[1])));
+            if(type.equals("stroke")){
+                Color color = Color.decode(value);
+                g2.setPaint(color);
+                lastColor = color;
+            } else if(type.equals("stroke-width")){
+                setThickness(Integer.parseInt((value)));
+            } else if(type.equals("fill")){
+                g2.setPaint(Color.decode(value));
+                g2.fillRect(oldX, oldY, currentX, currentY);
+                g2.setPaint(lastColor);
+            }
+        }
 
         //g2.fill();
     }
