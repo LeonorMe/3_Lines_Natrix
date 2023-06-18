@@ -3,13 +3,6 @@ package Paint.normal;
 import javax.swing.*;
 import java.awt.*;
 
-/*
- * Component for drawing !
- *
- * @autor: Leonor Medeiros
- *
- */
-
 public class Paint {
 
     public static DrawArea drawArea;

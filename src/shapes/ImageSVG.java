@@ -99,6 +99,15 @@ public class ImageSVG {
         return doc;
     }
 
+    public void deleteShape(int currentX, int currentY) {
+        for (AbstShape shape : this.shapes) {
+            if (shape.isInside(currentX, currentY)) {
+                this.shapes.remove(shape);
+                break;
+            }
+        }
+    }
+
     /*
     public static void main(String[] args) throws Exception {
         // READ FROM EXISTING SVG FILE

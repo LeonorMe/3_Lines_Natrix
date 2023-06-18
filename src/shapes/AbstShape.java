@@ -70,4 +70,9 @@ public abstract class AbstShape {
         //System.out.println("Y: " + this.y);
         System.out.println("Style: " + this.style);
     }
+
+    public boolean isInside(int currentX, int currentY) {
+        if(currentX - this.x < 5 && currentY - this.y < 5) return true;
+        else return false;
+    }
 }

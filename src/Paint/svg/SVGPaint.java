@@ -1,33 +1,61 @@
 package Paint.svg;
 
 import javax.swing.*;
-import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 
 public class SVGPaint {
+    public static DrawArea drawArea;
+    Menu menu;
+    Controls controls;
+    public static JFrame paintFrame;
+
+    private Dimension imageSize = new Dimension(900, 600);
 
     public static void main(String[] args) {
-        GUI();
+        new SVGPaint().show();
     }
 
-    private static void GUI(){
-        JFrame frame = new JFrame("SVG Software: 3 Lines Natrix");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1080, 720);
-        frame.setBackground(Color.DARK_GRAY);
+    private void show() {
+        //create main frame
+        paintFrame = new JFrame("SVG Editor");
+        Icon icon = new ImageIcon("Images/logoIcon.jpg");
+        paintFrame.setIconImage(((ImageIcon) icon).getImage());
 
-        JPanel menu = new A_Menu();
-        //JPanel canva = new A_Canva();
-        frame.setLayout(new BorderLayout());
+        Container content = paintFrame.getContentPane();
+        content.setBackground(Color.DARK_GRAY);
 
-        frame.add(menu, BorderLayout.NORTH);
-       // frame.add(canva, BorderLayout.CENTER);
+        //set layout on content pane
+        content.setLayout(new BorderLayout());
 
-        //ImageIcon icon = new ImageIcon("Images/logoIcon.jpg");
-        //frame.setIconImage(icon.getImage());
+        // TODO ask if wants to create a new file or open an existing one
 
-        //SwingUtilities.updateComponentTreeUI(frame);
-        frame.setVisible(true);
+        // Ask for the size of the image
+        getImageSize();
+        //create draw area
+        this.drawArea = new DrawArea(imageSize);
+        this.controls = new Controls();
+        this.menu = new Menu();
+        //add to content pane
+        content.add(drawArea, BorderLayout.CENTER);
+        content.add(controls, BorderLayout.WEST);
+        content.add(menu, BorderLayout.NORTH);
+
+        JScrollBar scrollBarH = new JScrollBar(JScrollBar.HORIZONTAL);
+        content.add(scrollBarH, BorderLayout.SOUTH);
+        JScrollBar scrollBarV = new JScrollBar(JScrollBar.VERTICAL);
+        content.add(scrollBarV, BorderLayout.EAST);
+
+
+        paintFrame.setSize(1080, 720);
+        paintFrame.setLocationRelativeTo(null);
+        paintFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        paintFrame.setVisible(true);
     }
 
+    private void getImageSize() {
+        String askSize = JOptionPane.showInputDialog(null, "Enter the Width*Height of the image (900x600):");
+        String[] parts = askSize.split("x"); // Integer.parseInt(askSize);
+        this.imageSize.width = Integer.parseInt(parts[0]);
+        this.imageSize.height = Integer.parseInt(parts[1]);
+    }
 }

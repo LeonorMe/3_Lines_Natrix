@@ -1,11 +1,19 @@
 package Paint;
 
 import Paint.svg.SVGPaint;
+import Paint.normal.Paint;
 import beau.Info;
 import javax.swing.*;
 import java.awt.*;
 
 import static beau.CustomLookAndFeel.*;
+
+/*
+ * Drawing software with 2D and SVG editor
+ *
+ * @autor: Leonor Medeiros
+ *
+ */
 
 public class Main2D {
     JFrame mainFrame;
@@ -37,13 +45,12 @@ public class Main2D {
 
         PaintBtn.addActionListener(e -> {
             mainFrame.setVisible(false);
-            Paint.normal.Paint.main(null);
+            Paint.main(null);
         });
         SVGBtn.addActionListener(e -> {
             mainFrame.setVisible(false);
             SVGPaint.main(null);
-            // exit
-            System.exit(0);
+            //System.exit(0);
         });
 
         // put image in the button

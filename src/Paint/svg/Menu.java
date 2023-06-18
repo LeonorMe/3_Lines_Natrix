@@ -1,29 +1,31 @@
-package Paint.normal;
+package Paint.svg;
 
+import Paint.normal.Paint;
 import beau.CustomLookAndFeel;
 import org.xml.sax.SAXException;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 
 import static Paint.normal.DrawArea.imageSVG;
 import static shapes.ImageSVG.openSVG;
 
 public class Menu extends JPanel {
+
+    JButton newButton, saveButton, openButton, infoButton, undoButton, redoButton, svgButton;
+
         public Menu() {
         setBackground(CustomLookAndFeel.lightGreen);
 
         // NEW BUTTON
         Icon newIcon = new ImageIcon("Images/newIcon.jpg");
-        JButton newButton = new JButton(newIcon);
+        newButton = new JButton(newIcon);
         newButton.addActionListener(e -> {
             //String askNewWindow = JOptionPane.showInputDialog(null, "Do you want to open a new window? (Y/N)");
             //if (askNewWindow.equals("N") || askNewWindow.equals("n")){
@@ -41,7 +43,7 @@ public class Menu extends JPanel {
 
         // SAVE BUTTON
         Icon saveIcon = new ImageIcon("Images/saveIcon.jpg");
-        JButton saveButton = new JButton(saveIcon);
+        saveButton = new JButton(saveIcon);
         saveButton.addActionListener(e -> {
             // receber caminho para a pasta
             //String outPath = JOptionPane.showInputDialog(null, "Save as (C:images/paint/paint001.jpg): ");
@@ -101,7 +103,7 @@ public class Menu extends JPanel {
 
         // OPEN BUTTON
         Icon openIcon = new ImageIcon("Images/openIcon.jpg");
-        JButton openButton = new JButton(openIcon);
+        openButton = new JButton(openIcon);
         openButton.addActionListener(e -> {
             // receber caminho para a pasta
             JTextArea inPath = new JTextArea("C:files/svgWork/paint001.svg", 1, 30);
@@ -122,13 +124,23 @@ public class Menu extends JPanel {
         });
         add(openButton);
 
+        // Info BUTTON
+        Icon infoIcon = new ImageIcon("Images/infoIcon.jpg");
+        infoButton = new JButton(infoIcon);
+        infoButton.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null,
+                    "Info\n\n" + "This is a simple paint program\n")
+            ;
+        });
+        add(infoButton);
+
     }
 
     public static void resetProgram() {
         Paint.paintFrame.setVisible(false);
         Paint.paintFrame.dispose();
         // Reset variables
-        DrawArea.image = new BufferedImage(1080, 720, BufferedImage.TYPE_INT_ARGB);
+        DrawArea.image = new BufferedImage(900, 600, BufferedImage.TYPE_INT_ARGB);
         Paint.main(null);
         // close program
         System.exit(0);
