@@ -30,7 +30,7 @@ public class SVGPaint {
         // TODO ask if wants to create a new file or open an existing one
 
         // Ask for the size of the image
-        getImageSize();
+        startImage();
         //create draw area
         this.drawArea = new DrawArea(imageSize);
         this.controls = new Controls();
@@ -52,10 +52,27 @@ public class SVGPaint {
         paintFrame.setVisible(true);
     }
 
-    private void getImageSize() {
-        String askSize = JOptionPane.showInputDialog(null, "Enter the Width*Height of the image (900x600):");
-        String[] parts = askSize.split("x"); // Integer.parseInt(askSize);
-        this.imageSize.width = Integer.parseInt(parts[0]);
-        this.imageSize.height = Integer.parseInt(parts[1]);
+    private void startImage() {
+        // ask if new image or open existing one
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Open Image");
+        int userSelection = JOptionPane.showConfirmDialog(null, "New image - Y; or open existing one - N? (Y/N)");
+        if (userSelection == JOptionPane.NO_OPTION) {
+            SVGPaint.paintFrame.setVisible(false);
+            SVGPaint.paintFrame.dispose();
+            SVGPaint.main(null);
+            JOptionPane.showMessageDialog(null,
+                    "Open\n\n" + "Your work as been sucefully opened\n");
+        } else if (userSelection == JOptionPane.YES_OPTION) {
+            // ask size of new image
+            String askSize = JOptionPane.showInputDialog(null, "Enter the Width*Height of the image (900x600):");
+            String[] parts = askSize.split("x"); // Integer.parseInt(askSize);
+            this.imageSize.width = Integer.parseInt(parts[0]);
+            this.imageSize.height = Integer.parseInt(parts[1]);
+        } else{
+            JOptionPane.showMessageDialog(null, "Thank you fo using our program!");
+            System.exit(0);
+        }
     }
 }

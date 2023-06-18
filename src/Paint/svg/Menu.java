@@ -45,13 +45,6 @@ public class Menu extends JPanel {
         Icon saveIcon = new ImageIcon("Images/saveIcon.jpg");
         saveButton = new JButton(saveIcon);
         saveButton.addActionListener(e -> {
-            // receber caminho para a pasta
-            //String outPath = JOptionPane.showInputDialog(null, "Save as (C:images/paint/paint001.jpg): ");
-
-            // Save image as .jpg
-            // Assuming you have a BufferedImage named 'image' that you want to save
-
-            // Create a file chooser to select the save location
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Save Image");
 
@@ -60,43 +53,21 @@ public class Menu extends JPanel {
                 // Get the selected file
                 File fileToSave = fileChooser.getSelectedFile();
 
-                // Ensure the file has the .jpg extension
-                String filePath = fileToSave.getAbsolutePath();
-                String svgPath = filePath;
-                if (!filePath.toLowerCase().endsWith(".jpg")) {
-                    fileToSave = new File(filePath + ".jpg");
-                }else {
-                    svgPath = filePath.substring(0, filePath.length() - 4);
+                // Ensure the file has the .svg extension
+                String svgPath = fileToSave.getAbsolutePath();
+                if (!svgPath.toLowerCase().endsWith(".svg")) {
+                    fileToSave = new File(svgPath + ".svg");
                 }
-                svgPath = filePath + ".svg";
-
-                // SVG format
                 try {
                     imageSVG.saveSVG(svgPath);
+                    JOptionPane.showMessageDialog(null, "I like it Picasso!" + "\n" +
+                            "Your work as been sucefully saved to\n" + svgPath + "\n");
                 } catch (ParserConfigurationException ex) {
                     throw new RuntimeException(ex);
                 } catch (TransformerException ex) {
                     throw new RuntimeException(ex);
                 }
-
-                // JPG format
-                // Write the image to the file
-                try {
-                    ImageIO.write((RenderedImage) DrawArea.image, "jpg", fileToSave);
-                    JOptionPane.showMessageDialog(null, "Image saved successfully! I like it Picasso" + "\n" +
-                            "Your work as been sucefully saved to\n" +
-                            filePath + "\n");
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null, "Error saving image: " + ex.getMessage());
-                }
             }
-
-
-            // show image preview
-            //ImageIcon imageIcon = new ImageIcon(image));
-            //JLabel imageLabel = new JLabel(imageIcon);
-            //JOptionPane.showMessageDialog(null, imageLabel);
-
         });
         add(saveButton);
 
@@ -106,23 +77,19 @@ public class Menu extends JPanel {
         openButton = new JButton(openIcon);
         openButton.addActionListener(e -> {
             // receber caminho para a pasta
-            JTextArea inPath = new JTextArea("C:files/svgWork/paint001.svg", 1, 30);
-            String path2 = String.valueOf(inPath.getAccessibleContext());
-            try {
-                openSVG(path2);
-            } catch (ParserConfigurationException ex) {
-                throw new RuntimeException(ex);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            } catch (SAXException ex) {
-                throw new RuntimeException(ex);
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Open Image");
+            int userSelection = JOptionPane.showConfirmDialog(null, "Do you want to open a new window? (Y/N)");
+            if (userSelection == JOptionPane.YES_OPTION) {
+                Paint.paintFrame.setVisible(false);
+                Paint.paintFrame.dispose();
+                Paint.main(null);
+                JOptionPane.showMessageDialog(null,
+                        "Open\n\n" + "Your work as been sucefully opened\n");
             }
-
-            JOptionPane.showMessageDialog(null,
-                    "Open\n\n" + "Your work as been sucefully opened from\n" +
-                            path2 + "\n");
         });
         add(openButton);
+
 
         // Info BUTTON
         Icon infoIcon = new ImageIcon("Images/infoIcon.jpg");
