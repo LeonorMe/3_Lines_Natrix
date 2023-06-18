@@ -1,4 +1,4 @@
-package Paint;
+package Paint.normal;
 
 import shapes.*;
 
@@ -17,6 +17,8 @@ public class DrawArea extends JComponent{
     private Color bgColor = Color.WHITE, lastColor = Color.BLACK;
 
     private Dimension imageSize  = new Dimension(1080, 720);
+
+    private String styleString = "stroke:black;stroke-width:1";
 
     public DrawArea(Dimension imageSize) {
         this.imageSize = imageSize;
@@ -113,19 +115,19 @@ public class DrawArea extends JComponent{
     public void line() {
         g2.drawLine(oldX, oldY, currentX, currentY);
         repaint();
-        imageSVG.addShape(new shapes.Line("000",oldX, oldY, currentX, currentY, getStyle()));
+        imageSVG.addShape(new shapes.Line("000",oldX, oldY, currentX, currentY, this.styleString));
     }
     public void circle() {
         g2.drawOval(oldX, oldY, currentX, currentY);
         repaint();
         int raio = (int) Math.sqrt(currentX*currentX+currentY*currentY);
         //g2.getPaint().toString() ,g2.getStroke().toString()
-        imageSVG.addShape(new shapes.Circle("000",oldX, oldY, raio, getStyle()));
+        imageSVG.addShape(new shapes.Circle("000",oldX, oldY, raio, this.styleString));
     }
     public void rectangle() {
         g2.drawRect(oldX, oldY, currentX, currentY);
         repaint();
-        imageSVG.addShape(new shapes.Rectangle("000",oldX, oldY, currentX, currentY, getStyle()));
+        imageSVG.addShape(new shapes.Rectangle("000",oldX, oldY, currentX, currentY, this.styleString));
     }
 
     public String getStyle(){
@@ -134,6 +136,7 @@ public class DrawArea extends JComponent{
     }
 
     public void setStyle(String style){
+        this.styleString = style;
         String[] parts = style.split(";");
 
         String type, value;

@@ -1,5 +1,6 @@
 package Paint;
 
+import Paint.svg.SVGPaint;
 import beau.Info;
 import javax.swing.*;
 import java.awt.*;
@@ -28,20 +29,19 @@ public class Main2D {
         // Set the buttons side by side
         JButton PaintBtn = new JButton("2D Paint");
         PaintBtn.setFont(new Font("Code Pro", Font.PLAIN, 20));
-        PaintBtn.setBackground(orange);
+        PaintBtn.setBackground(green);
 
         JButton SVGBtn = new JButton("SVG Editor");
         SVGBtn.setFont(new Font("Code Pro", Font.PLAIN, 20));
-        SVGBtn.setBackground(green);
+        SVGBtn.setBackground(orange);
 
         PaintBtn.addActionListener(e -> {
             mainFrame.setVisible(false);
-            Paint.main(null);
+            Paint.normal.Paint.main(null);
         });
         SVGBtn.addActionListener(e -> {
             mainFrame.setVisible(false);
-            //Main.main(null); // Open SVG
-            System.out.println("Sorry, under construction!");
+            SVGPaint.main(null);
             // exit
             System.exit(0);
         });

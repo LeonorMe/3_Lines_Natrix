@@ -1,4 +1,4 @@
-package SVGPaint;
+package Paint.svg;
 
 import shapes.*;
 

@@ -1,4 +1,4 @@
-package Paint;
+package Paint.normal;
 
 import beau.CustomLookAndFeel;
 import org.xml.sax.SAXException;
@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
-import static Paint.DrawArea.imageSVG;
+import static Paint.normal.DrawArea.imageSVG;
 import static shapes.ImageSVG.openSVG;
 
 public class Menu extends JPanel {

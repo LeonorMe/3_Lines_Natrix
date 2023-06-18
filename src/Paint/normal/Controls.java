@@ -1,4 +1,4 @@
-package Paint;
+package Paint.normal;
 
 import javax.swing.*;
 import java.awt.*;

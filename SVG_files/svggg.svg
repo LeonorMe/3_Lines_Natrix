@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" height="800" width="100">
+    <line id="000" style="java.awt.Color[r=0,g=0,b=0];java.awt.BasicStroke@d1a0003e" x1="0.0" x2="0.0" y1="0.0" y2="0.0"/>
+    <line id="000" style="java.awt.Color[r=0,g=0,b=0];java.awt.BasicStroke@d1a0003e" x1="63.0" x2="0.0" y1="204.0" y2="0.0"/>
+    <line id="000" style="java.awt.Color[r=124,g=77,b=56];java.awt.BasicStroke@1b80003e" x1="63.0" x2="63.0" y1="352.0" y2="352.0"/>
+    <circle cx="63.0" cy="352.0" id="000" r="357.0" style="java.awt.Color[r=124,g=77,b=56];java.awt.BasicStroke@1b80003e"/>
+    <rect height="352.0" id="000" style="java.awt.Color[r=124,g=77,b=56];java.awt.BasicStroke@1b80003e" width="63.0" x="53.0" y="72.0"/>
+</svg>
