@@ -13,7 +13,7 @@ public class Controls extends JPanel {
 
     JMenuBar shapesMenuBar;
     JMenu shapesMenu;
-    JMenuItem line, circle, rectangle, path;
+    JMenuItem select, line, circle, rectangle, polyline;
 
     ActionListener actionListener = new ActionListener(){
         @Override
@@ -28,12 +28,21 @@ public class Controls extends JPanel {
                 drawArea.setThickness(Integer.parseInt(setThickness.getText()));
             } else if (e.getSource() == bgColorBtn) {
                 drawArea.setBgColor();
+            } else if (e.getSource() == select){
+                drawArea.select();
+                shapesMenu.setText("Select");
             } else if (e.getSource() == line) {
                 drawArea.line();
+                shapesMenu.setText("Line");
             } else if (e.getSource() == circle) {
                 drawArea.circle();
+                shapesMenu.setText("Circle");
             } else if (e.getSource() == rectangle) {
                 drawArea.rectangle();
+                shapesMenu.setText("Rectangle");
+            } else if (e.getSource() == polyline) {
+                drawArea.polyline();
+                shapesMenu.setText("Polyline");
             } else if (e.getSource() == styleBtn) {
                 String styleInput = JOptionPane.showInputDialog("Enter style (stroke:#000;stroke-width:1) ");
                 drawArea.setStyle(styleInput);
@@ -71,16 +80,18 @@ public class Controls extends JPanel {
 
         shapesMenuBar = new JMenuBar();
         shapesMenu = new JMenu("Shapes");
+        select = new JMenuItem("Select");
         line = new JMenuItem("Line");
         circle = new JMenuItem("Circle");
         rectangle = new JMenuItem("Rectangle");
-        path = new JMenuItem("Path");
-        shapesMenu.add(line); shapesMenu.add(circle); shapesMenu.add(rectangle); shapesMenu.add(path);
+        polyline = new JMenuItem("Polyline");
+        shapesMenu.add(select); shapesMenu.add(line); shapesMenu.add(circle); shapesMenu.add(rectangle); shapesMenu.add(polyline);
         shapesMenuBar.add(shapesMenu);
+        select.addActionListener(actionListener);
         line.addActionListener(actionListener);
         circle.addActionListener(actionListener);
         rectangle.addActionListener(actionListener);
-        path.addActionListener(actionListener);
+        polyline.addActionListener(actionListener);
 
 
         styleBtn = new JButton("Style");

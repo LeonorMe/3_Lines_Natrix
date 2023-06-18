@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 
 public class DrawArea extends JComponent{
@@ -18,11 +17,13 @@ public class DrawArea extends JComponent{
 
     private Color bgColor = Color.WHITE, lastColor = Color.BLACK;
 
-    private Dimension imageSize  = new Dimension(1080, 720);
+    private Dimension imageSize  = new Dimension(900, 600);
 
     private String styleString = "stroke:black;stroke-width:1";
 
     int tickness = 1, numberOfShapes = -1;
+
+    int MODE = 0; // 0 - select, 1 - draw line, 2 - draw circle, 3 - draw rectangle, 4 - draw triangle, 5 - draw polygon, 6 - draw text, 7 - draw path;
 
     public DrawArea(Dimension imageSize) {
         this.imageSize = imageSize;
@@ -31,34 +32,17 @@ public class DrawArea extends JComponent{
         // add a background
         imageSVG.addShape(new Rectangle(getId(), 0, 0, imageSize.width, imageSize.height, "fill:white"));
 
-        /*
-        setDoubleBuffered(false); // ?
-        addMouseListener(new MouseAdapter() { // ?
 
+        setDoubleBuffered(false);
+        addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 // save coord x,y when mouse is pressed
-                oldX = e.getX();
-                oldY = e.getY();
-            }
-        });
-        addMouseMotionListener(new MouseMotionAdapter() {
-            public void mouseDragged(MouseEvent e) {
-                // coord x,y when drag mouse
-                currentX = e.getX();
-                currentY = e.getY();
-
-                if (g2 != null) {
-                    // draw line if g2 context not null
-                    g2.drawLine(oldX, oldY, currentX, currentY);
-                    // refresh draw area to repaint
-                    repaint();
-                    // store current coords x,y as olds x,y
-                    oldX = currentX;
-                    oldY = currentY;
+                if(MODE == 0) {
+                    oldX = e.getX();
+                    oldY = e.getY();
                 }
             }
         });
-         */
     }
 
     protected void paintComponent(Graphics g) {
@@ -104,24 +88,31 @@ public class DrawArea extends JComponent{
         repaint();
     }
 
+    public void select() {
+        MODE = 0;
+    }
     public void line() {
+        MODE = 1;
         g2.drawLine(oldX, oldY, currentX, currentY);
         repaint();
         imageSVG.addShape(new Line(getId(),oldX, oldY, currentX, currentY, this.styleString));
     }
     public void circle() {
+        MODE = 2;
         g2.drawOval(oldX, oldY, currentX, currentY);
         repaint();
         int raio = (int) Math.sqrt(currentX*currentX+currentY*currentY);
         imageSVG.addShape(new Circle(getId(),oldX, oldY, raio, this.styleString));
     }
     public void rectangle() {
+        MODE = 3;
         g2.drawRect(oldX, oldY, currentX, currentY);
         repaint();
         imageSVG.addShape(new shapes.Rectangle(getId(),oldX, oldY, currentX, currentY, this.styleString));
     }
 
     public void triangle () { // TODO
+        MODE = 4;
         g2.drawLine(oldX, oldY, currentX, currentY);
         g2.drawLine(oldX, oldY, currentX, currentY);
         g2.drawLine(oldX, oldY, currentX, currentY);
@@ -130,34 +121,31 @@ public class DrawArea extends JComponent{
     }
 
     public void polyline(){
-        g2.drawPolyline(new int[]{oldX, currentX}, new int[]{oldY, currentY}, 2);
-        repaint();
-        ArrayList<Ponto> pontos = new ArrayList<>();
-        pontos.add(new Ponto(currentX, currentY));
-        imageSVG.addShape(new Polyline(getId(),oldX, oldY, pontos, this.styleString));
-
-
-        setDoubleBuffered(false); // ?
+        MODE = 5;
+        ArrayList<Ponto> pontosList = new ArrayList<>(); //new int[]{oldX, currentX}, new int[]{oldY, currentY}
         addMouseListener(new MouseAdapter() { // ?
+            @Override
+            public void mouseClicked(MouseEvent e){
+                if (SwingUtilities.isRightMouseButton(e)) {
+                    // Right-click detected
 
-            public void mousePressed(MouseEvent e) {
-                // save coord x,y when mouse is pressed
-                oldX = e.getX();
-                oldY = e.getY();
-            }
-        });
-        addMouseMotionListener(new MouseMotionAdapter() {
-            public void mouseDragged(MouseEvent e) {
-                // coord x,y when drag mouse
-                currentX = e.getX();
-                currentY = e.getY();
-
-                if (g2 != null) {
-                    // draw line if g2 context not null
-                    g2.drawLine(oldX, oldY, currentX, currentY);
-                    // refresh draw area to repaint
+                    int[] pontosX = new int[pontosList.size()], pontosY = new int[pontosList.size()];
+                    for (int i=0; i<pontosList.size(); i++) {
+                        pontosX[i] = (int) pontosList.get(i).getX();
+                        pontosY[i] = (int) pontosList.get(i).getY();
+                    }
+                    //g2.drawPolyline(pontosX,pontosY ,pontos.size());
                     repaint();
-                    // store current coords x,y as olds x,y
+                    imageSVG.addShape(new Polyline(getId(), pontosX[0], pontosY[0], pontosList, styleString));
+                    pontosList.clear();
+
+                } else if (SwingUtilities.isLeftMouseButton(e)) {
+                    // Left-click detected
+                    currentX = e.getX();
+                    currentY = e.getY();
+                    pontosList.add(new Ponto(currentX, currentY));
+                    if (g2 != null) g2.drawLine(oldX, oldY, currentX, currentY);
+                    repaint();// refresh draw area to repaint
                     oldX = currentX;
                     oldY = currentY;
                 }
