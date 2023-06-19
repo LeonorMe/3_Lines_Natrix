@@ -7,12 +7,8 @@ import java.awt.event.ActionListener;
 
 public class Controls extends JPanel {
 
-    private JButton clearBtn, blackBtn, grayBtn, greenBtn, rubberBtn, thicknessBtn, colorBtn, bgColorBtn, styleBtn;
+    private JButton clearBtn, blackBtn, grayBtn, greenBtn, rubberBtn, thicknessBtn, colorBtn, bgColorBtn;
     private JTextField setThickness;
-
-    JMenuBar shapesMenuBar;
-    JMenu shapesMenu;
-    JMenuItem line, circle, rectangle;
 
     ActionListener actionListener = new ActionListener(){
         @Override
@@ -33,17 +29,6 @@ public class Controls extends JPanel {
                 Paint.drawArea.setThickness(Integer.parseInt(setThickness.getText()));
             } else if (e.getSource() == bgColorBtn) {
                 Paint.drawArea.setBgColor();
-            } else if (e.getSource() == line) {
-                Paint.drawArea.line();
-            } else if (e.getSource() == circle) {
-                Paint.drawArea.circle();
-            } else if (e.getSource() == rectangle) {
-                Paint.drawArea.rectangle();
-            } else if (e.getSource() == styleBtn) {
-                //String styleInput = JOptionPane.showInputDialog("Enter style (stroke:black;stroke-width:1): ");
-                //String styleInput = new styleControls().getStyle();
-                String styleInput = JOptionPane.showInputDialog("Enter style (stroke:#000;stroke-width:1) ");
-                Paint.drawArea.setStyle(styleInput);
             } else {
                     System.out.println("Error");
             }
@@ -88,23 +73,7 @@ public class Controls extends JPanel {
         bgColorBtn = new JButton("Background Color");
         bgColorBtn.addActionListener(actionListener);
 
-        shapesMenuBar = new JMenuBar();
-        shapesMenu = new JMenu("Shapes");
-        line = new JMenuItem("Line");
-        circle = new JMenuItem("Circle");
-        rectangle = new JMenuItem("Rectangle");
-        shapesMenu.add(line); shapesMenu.add(circle); shapesMenu.add(rectangle);
-        shapesMenuBar.add(shapesMenu);
-        line.addActionListener(actionListener);
-        circle.addActionListener(actionListener);
-        rectangle.addActionListener(actionListener);
-
-
-        styleBtn = new JButton("Style");
-        styleBtn.addActionListener(actionListener);
-
         //add to panel
-        add(shapesMenuBar);
         add(clearBtn);
         add(rubberBtn);
         add(blackBtn);
@@ -114,6 +83,5 @@ public class Controls extends JPanel {
         add(setThickness);
         add(thicknessBtn);
         add(bgColorBtn);
-        add(styleBtn);
     }
 }

@@ -109,6 +109,11 @@ public class ImageSVG {
         }
     }
 
+    public void reset() {
+        this.shapes.clear();
+        System.out.println("Image reset!");
+    }
+
     /*
     public static void main(String[] args) throws Exception {
         // READ FROM EXISTING SVG FILE

@@ -105,8 +105,7 @@ public class Main2D {
         infoBtn.setBackground(Color.WHITE);
         infoBtn.addActionListener(e -> {
             Info info = new Info();
-            String infoText = info.show();
-            JOptionPane.showMessageDialog(null, infoText, "Info", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, info.getInfo(), "Info", JOptionPane.INFORMATION_MESSAGE);
         });
 
         mainFrame.add(mainLabel);

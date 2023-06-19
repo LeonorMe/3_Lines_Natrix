@@ -13,7 +13,7 @@ import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static Paint.normal.DrawArea.imageSVG;
+import static Paint.svg.DrawArea.imageSVG;
 import static shapes.ImageSVG.openSVG;
 
 public class Menu extends JPanel {

@@ -6,26 +6,23 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.image.BufferedImage;
 import javax.swing.*;
 
 public class DrawArea extends JComponent{
     public static Image image;
-    public static ImageSVG imageSVG;
-    private Graphics2D g2;
+    private static Graphics2D g2;
     private int currentX, currentY, oldX, oldY; // Mouse coordinates
 
     private Color bgColor = Color.WHITE, lastColor = Color.BLACK;
 
-    private Dimension imageSize  = new Dimension(1080, 720);
+    private Dimension imageSize  = new Dimension(900, 600);
 
-    private String styleString = "stroke:black;stroke-width:1";
 
     public DrawArea(Dimension imageSize) {
         this.imageSize = imageSize;
 
-        imageSVG = new ImageSVG(imageSize.width, imageSize.height);
-
-        setDoubleBuffered(false); // ?
+        setDoubleBuffered(false);
         addMouseListener(new MouseAdapter() { // ?
 
             public void mousePressed(MouseEvent e) {
@@ -112,52 +109,13 @@ public class DrawArea extends JComponent{
         repaint();
     }
 
-    public void line() {
-        g2.drawLine(oldX, oldY, currentX, currentY);
-        repaint();
-        imageSVG.addShape(new shapes.Line("000",oldX, oldY, currentX, currentY, this.styleString));
-    }
-    public void circle() {
-        g2.drawOval(oldX, oldY, currentX, currentY);
-        repaint();
-        int raio = (int) Math.sqrt(currentX*currentX+currentY*currentY);
-        //g2.getPaint().toString() ,g2.getStroke().toString()
-        imageSVG.addShape(new shapes.Circle("000",oldX, oldY, raio, this.styleString));
-    }
-    public void rectangle() {
-        g2.drawRect(oldX, oldY, currentX, currentY);
-        repaint();
-        imageSVG.addShape(new shapes.Rectangle("000",oldX, oldY, currentX, currentY, this.styleString));
-    }
-
-    public String getStyle(){
-        //"stroke:black;stroke-width:1"
-        return g2.getPaint().toString() + ";" + g2.getStroke().toString();
-    }
-
-    public void setStyle(String style){
-        this.styleString = style;
-        String[] parts = style.split(";");
-
-        String type, value;
-        for(String part : parts){
-            type = part.split(":")[0];
-            value = part.split(":")[1];
-
-            if(type.equals("stroke")){
-                Color color = Color.decode(value);
-                g2.setPaint(color);
-                lastColor = color;
-            } else if(type.equals("stroke-width")){
-                setThickness(Integer.parseInt((value)));
-            } else if(type.equals("fill")){
-                g2.setPaint(Color.decode(value));
-                g2.fillRect(oldX, oldY, currentX, currentY);
-                g2.setPaint(lastColor);
-            }
-        }
-
-        //g2.fill();
+    public static void openImage(ImageIcon imageIcon){ // TODO
+        Image newImage = imageIcon.getImage();
+        image = new BufferedImage(newImage.getHeight(null), newImage.getWidth(null), BufferedImage.TYPE_INT_ARGB);
+        g2.drawImage(image, 0, 0, null);
+        JLabel imageLabel = new JLabel((Icon) newImage);
+        imageLabel.setSize(newImage.getHeight(null), newImage.getWidth(null));
+        imageLabel.setLocation(0, 0);
     }
 
 }

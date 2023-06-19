@@ -1,7 +1,7 @@
 package painels;
 
 public class Info {
-    final String VERSION = "1.0";
+    final String VERSION = "2.0";
     final String AUTHOR = "Leonor Medeiros - A50758";
     final String NAME = "3 Lines Natrix";
 
