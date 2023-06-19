@@ -66,7 +66,7 @@ public class Add extends JPanel{
                 }
             });
 
-            Line line = new Line("Line", (float) xy1[0], (float) xy1[1], (float) xy2[0], (float)xy2[1], "stroke:black;stroke-width:5");
+            Line line = new Line("Line", xy1[0], xy1[1], xy2[0], xy2[1], "stroke:black;stroke-width:5");
             line.show();
             paintComponent(getGraphics(), line);
 

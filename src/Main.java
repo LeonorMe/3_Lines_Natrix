@@ -101,10 +101,10 @@ public class Main {
         Circle newCircle = new Circle("000", 10, 20, 80, "stroke:black;stroke-width:5;fill:green");
         newImage.addShape(newCircle);
 
-        Rectangle rect = new Rectangle("001", 20f, 30f, 40f, 50f, "stroke:black;stroke-width:5;fill:green");
+        Rectangle rect = new Rectangle("001", 20, 30, 40, 50, "stroke:black;stroke-width:5;fill:green");
         newImage.addShape(rect);
 
-        Line line = new Line("002", 60f, 70f, 80f, 90f, "stroke:black;stroke-width:5;fill:green");
+        Line line = new Line("002", 60, 70, 80, 90, "stroke:black;stroke-width:5;fill:green");
         newImage.addShape(line);
 
         // 3. Set path

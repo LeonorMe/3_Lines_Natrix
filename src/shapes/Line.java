@@ -2,10 +2,12 @@ package shapes;
 
 import org.w3c.dom.Element;
 
-public class Line extends AbstShape {
-    private float x2=0, y2=0;
+import java.awt.*;
 
-    public Line(String id, float x1, float y1, float x2, float y2, String style) {
+public class Line extends AbstShape {
+    private int x2=0, y2=0;
+
+    public Line(String id, int x1, int y1, int x2, int y2, String style) {
         super.AbstShape(id, x1, y1, style);
         this.x2 = x2;
         this.y2 = y2;
@@ -16,10 +18,10 @@ public class Line extends AbstShape {
     public String getType(){
         return "line";
     }
-    public float getX2(){
+    public int getX2(){
         return this.x2;
     }
-    public float getY2(){
+    public int getY2(){
         return this.y2;
     }
 
@@ -34,10 +36,10 @@ public class Line extends AbstShape {
     @Override
     public void addElement(Element svg, Element line) {
         super.addElement(svg, line);
-        line.setAttribute("x1", Float.toString(getX()));
-        line.setAttribute("y1", Float.toString(getY()));
-        line.setAttribute("x2", Float.toString(this.x2));
-        line.setAttribute("y2", Float.toString(this.y2));
+        line.setAttribute("x1", Integer.toString(getX()));
+        line.setAttribute("y1", Integer.toString(getY()));
+        line.setAttribute("x2", Integer.toString(this.x2));
+        line.setAttribute("y2", Integer.toString(this.y2));
         svg.appendChild(line);
     }
 
@@ -46,5 +48,23 @@ public class Line extends AbstShape {
         System.out.println("x2: " + this.x2);
         System.out.println("y2: " + this.y2);
         super.show();
+    }
+
+    public void drawShape(Graphics g) {
+        g.drawLine(getX(), getY(), this.x2, this.y2);
+    }
+
+    @Override
+    public boolean isInside(int currentX, int currentY) {
+        //return super.isInside(currentX, currentY);
+        if (getX2() - getX() == 0) {
+            return false;
+        }
+        else {
+            int a = (int) ((int) (getY2() - getY()) / (getX2() - getX()));
+            int b = (int) (getY() - a * getX());
+            if(getStyleTickness() >= a*currentX + b - currentY ) return true;
+            else return false;
+        }
     }
 }

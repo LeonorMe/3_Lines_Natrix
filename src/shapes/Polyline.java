@@ -1,6 +1,8 @@
 package shapes;
 
 import org.w3c.dom.Element;
+
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Polyline extends AbstShape {
@@ -84,10 +86,19 @@ public class Polyline extends AbstShape {
     }
      */
 
+    @Override
+    public void drawShape(Graphics g) {
+        for (int i = 0; i < this.getPontos().size()-1; i++) {
+            g.drawLine(this.getPonto(i).getX(), this.getPonto(i).getY(), this.getPonto(i+1).getX(), this.getPonto(i+1).getY());
+        }
+    }
+
     public boolean isInside(int currentX, int currentY, int size) {
-        for (Ponto ponto: pontos) {
-            if(currentX - ponto.getX() < size && currentY - ponto.getY() < size)
-                return true;
+        if(!super.isInside(currentX, currentY)){
+            for (Ponto ponto: pontos) {
+                if(currentX - ponto.getX() < size && currentY - ponto.getY() < size)
+                    return true;
+            }
         }
         return false;
     }

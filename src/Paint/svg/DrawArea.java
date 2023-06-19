@@ -30,16 +30,18 @@ public class DrawArea extends JComponent{
 
         imageSVG = new ImageSVG(imageSize.width, imageSize.height);
         // add a background
-        imageSVG.addShape(new Rectangle(getId(), 0, 0, imageSize.width, imageSize.height, "fill:white"));
-
+        imageSVG.addShape(new Rectangle(getId(), 0, 0, imageSize.width, imageSize.height, "fill:blue"));
 
         setDoubleBuffered(false);
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 // save coord x,y when mouse is pressed
                 if(MODE == 0) {
-                    oldX = e.getX();
-                    oldY = e.getY();
+                    currentX = e.getX();
+                    currentY = e.getY();
+                    // oldX = e.getX();
+                    // oldY = e.getY();
+
                 }
             }
         });
@@ -60,15 +62,18 @@ public class DrawArea extends JComponent{
 
     // now we create exposed methods
     public void clear() {
-        g2.setPaint(Color.white);
+        //g2.setPaint(Color.white);
         // draw white on entire draw area to clear
-        g2.fillRect(0, 0, getSize().width, getSize().height);
-        g2.setPaint(Color.black);
-        repaint();
+        //g2.fillRect(0, 0, getSize().width, getSize().height);
+        //g2.setPaint(Color.black);
+        //repaint();
+        imageSVG.getShapes().get(0).setStyle("fill:white");
+        redrawSVG();
     }
 
     public void rubber() {
         imageSVG.deleteShape(currentX, currentY);
+        redrawSVG();
     }
 
     public void otherColor() {
@@ -84,8 +89,9 @@ public class DrawArea extends JComponent{
 
     public void setBgColor() {
         bgColor = JColorChooser.showDialog(null, "Choose a color", Color.WHITE);
-        imageSVG.getShapes().get(0).setStyle("fill:" + bgColor.toString());
         repaint();
+        imageSVG.getShapes().get(0).setStyle("fill:" + bgColor.toString());
+        redrawSVG();
     }
 
     public void select() {
@@ -95,30 +101,32 @@ public class DrawArea extends JComponent{
         MODE = 1;
         g2.drawLine(oldX, oldY, currentX, currentY);
         repaint();
-        imageSVG.addShape(new Line(getId(),oldX, oldY, currentX, currentY, this.styleString));
+        imageSVG.addShape(new Line("line_" + getId(),oldX, oldY, currentX, currentY, this.styleString));
     }
     public void circle() {
         MODE = 2;
-        g2.drawOval(oldX, oldY, currentX, currentY);
-        repaint();
         int raio = (int) Math.sqrt(currentX*currentX+currentY*currentY);
-        imageSVG.addShape(new Circle(getId(),oldX, oldY, raio, this.styleString));
+        g2.drawOval(oldX, oldY, raio, raio);
+        repaint();
+        imageSVG.addShape(new Circle("circle_" + getId(),oldX, oldY, raio, this.styleString));
     }
     public void rectangle() {
         MODE = 3;
         g2.drawRect(oldX, oldY, currentX, currentY);
         repaint();
-        imageSVG.addShape(new shapes.Rectangle(getId(),oldX, oldY, currentX, currentY, this.styleString));
+        imageSVG.addShape(new shapes.Rectangle("rect_" + getId(),oldX, oldY, currentX, currentY, this.styleString));
     }
 
+    /*
     public void triangle () { // TODO
         MODE = 4;
         g2.drawLine(oldX, oldY, currentX, currentY);
         g2.drawLine(oldX, oldY, currentX, currentY);
         g2.drawLine(oldX, oldY, currentX, currentY);
         repaint();
-        //imageSVG.addShape(new Triangle(getId(),oldX, oldY, currentX, currentY, this.styleString));
+        //imageSVG.addShape(new Triangle("tri_" + getId(),oldX, oldY, currentX, currentY, this.styleString));
     }
+     */
 
     public void polyline(){
         MODE = 5;
@@ -136,7 +144,7 @@ public class DrawArea extends JComponent{
                     }
                     //g2.drawPolyline(pontosX,pontosY ,pontos.size());
                     repaint();
-                    imageSVG.addShape(new Polyline(getId(), pontosX[0], pontosY[0], pontosList, styleString));
+                    imageSVG.addShape(new Polyline("polyline_" + getId(), pontosX[0], pontosY[0], pontosList, styleString));
                     pontosList.clear();
 
                 } else if (SwingUtilities.isLeftMouseButton(e)) {
@@ -163,7 +171,8 @@ public class DrawArea extends JComponent{
 
     public String getStyle(){
         //"stroke:black;stroke-width:1"
-        return g2.getPaint().toString() + ";" + g2.getStroke().toString();
+        String style = "stroke:" + lastColor.toString() + ";stroke-width:" + this.tickness;
+        return style;
     }
 
     public void setStyle(String style){
@@ -181,18 +190,44 @@ public class DrawArea extends JComponent{
                 lastColor = color;
             } else if(type.equals("stroke-width")){
                 setThickness(Integer.parseInt((value)));
-            } else if(type.equals("fill")){
+            } else if(type.equals("fill")){//g2.fill();
                 g2.setPaint(Color.decode(value));
                 g2.fillRect(oldX, oldY, currentX, currentY);
                 g2.setPaint(lastColor);
             }
         }
-
-        //g2.fill();
     }
 
     private String getId(){
         this.numberOfShapes++;
         return String.format("%03d", numberOfShapes);
+    }
+
+    public void redrawSVG(){
+        clear();
+
+        String oldStyle = this.styleString;
+        for(AbstShape shape : imageSVG.getShapes()){
+            setStyle(shape.getStyle());
+            shape.drawShape(g2);
+            //repaint(); TODO
+
+            /*
+            if(shape instanceof Line) {
+                g2.drawLine(shape.getX(), shape.getY(), ((Line) shape).getX2(), ((Line) shape).getY2());
+                repaint();
+            }
+            else if(shape instanceof Circle)
+                shape.drawShape(g2);
+            else if(shape instanceof shapes.Rectangle)
+                shape.drawShape(g2);
+            else if(shape instanceof Polyline)
+                shape.drawShape(g2);
+            else shape.drawShape(g2);
+             */
+        }
+        setStyle(oldStyle);
+
+        repaint();
     }
 }

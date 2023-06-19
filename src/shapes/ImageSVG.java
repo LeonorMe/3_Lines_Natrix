@@ -103,6 +103,7 @@ public class ImageSVG {
         for (AbstShape shape : this.shapes) {
             if (shape.isInside(currentX, currentY)) {
                 this.shapes.remove(shape);
+                System.out.println("Shape deleted!");
                 break;
             }
         }

@@ -1,36 +1,36 @@
 package shapes;
 
 public class Ponto {
-    public float x = 0, y = 0;
-    private float[] ponto = {x,y};
+    public int x = 0, y = 0;
+    private int[] ponto = {x,y};
 
-    public Ponto(float x, float y){
+    public Ponto(int x, int y){
         this.x = x;
         this.y = y;
         this.ponto[0] = x;
         this.ponto[1] = y;
     }
 // GET
-    public float getX() {
+    public int getX() {
         return this.x;
     }
-    public float getY(){
+    public int getY(){
         return this.y;
     }
-    public float[] getP(){
+    public int[] getP(){
         return this.ponto;
     }
 // SET
-    public void setX(float x){
+    public void setX(int x){
         this.x = x;
         this.ponto[0] = x;
     }
-    public void setY(float y){
+    public void setY(int y){
         this.y = y;
         this.ponto[1] = y;
     }
-    public void p(float x, float y){
-        this.ponto = new float[]{x,y};
+    public void p(int x, int y){
+        this.ponto = new int[]{x,y};
     }
 
     // DO STUFF
@@ -38,13 +38,5 @@ public class Ponto {
     @Override
     public String toString() {
         return "(" + this.x + ", " + this.y + ")";
-    }
-
-    public static void main(String[] args) {
-        Ponto A = new Ponto(3F,8.4f);
-
-        String a = A.toString();
-
-        System.out.println(a);
     }
 }
