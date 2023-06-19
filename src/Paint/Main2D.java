@@ -3,10 +3,15 @@ package Paint;
 import Paint.svg.SVGPaint;
 import Paint.normal.Paint;
 import beau.Info;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
 import static beau.CustomLookAndFeel.*;
 
@@ -47,6 +52,8 @@ public class Main2D {
         SVGBtn.setBackground(darkGreen);
         SVGBtn.setForeground(Color.WHITE);
 
+        playAppSound("Sound/AppSound1.wav");
+
         PaintBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -80,11 +87,12 @@ public class Main2D {
             }
         });
         PaintBtn.addActionListener(e -> {
+            playAppSound("Sound/AppSound2.wav");
             mainFrame.setVisible(false);
             Paint.main(null);
         });
         SVGBtn.addActionListener(e -> {
-            PaintBtn.setBackground(orange);
+            playAppSound("Sound/AppSound2.wav");
             mainFrame.setVisible(false);
             SVGPaint.main(null);
         });
@@ -108,5 +116,16 @@ public class Main2D {
         mainFrame.add(infoBtn);
 
         mainFrame.setVisible(true);
+    }
+
+    public static void playAppSound(String soundFileName) {
+        try {
+            AudioInputStream sound = AudioSystem.getAudioInputStream(new File(soundFileName));
+            Clip clip = AudioSystem.getClip();
+            clip.open(sound);
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
