@@ -5,6 +5,8 @@ import Paint.normal.Paint;
 import beau.Info;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import static beau.CustomLookAndFeel.*;
 
@@ -22,7 +24,7 @@ public class Main2D {
     }
 
     public void show() {
-        mainFrame = new JFrame("2D Editor");
+        mainFrame = new JFrame("2D Editor -  3 Lines Natrix");
         mainFrame.setSize(600, 200);
         mainFrame.getContentPane().setBackground(lightGreen);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,33 +33,68 @@ public class Main2D {
         mainFrame.setIconImage(new ImageIcon("Images/logoIcon.jpg").getImage());
         mainFrame.setLayout(new FlowLayout());
 
-        JLabel mainLabel = new JLabel("Welcome to 2D Editor: 3 Lines Natrix!\n\n");
+        JLabel mainLabel = new JLabel("Welcome to 2D Editor - 3 Lines Natrix!\n\n");
         mainLabel.setFont(new Font("Code Pro", Font.PLAIN, 30));
 
         // Set the buttons side by side
         JButton PaintBtn = new JButton("2D Paint");
         PaintBtn.setFont(new Font("Code Pro", Font.PLAIN, 20));
-        PaintBtn.setBackground(green);
+        PaintBtn.setBackground(darkGreen);
+        PaintBtn.setForeground(Color.WHITE);
 
         JButton SVGBtn = new JButton("SVG Editor");
         SVGBtn.setFont(new Font("Code Pro", Font.PLAIN, 20));
-        SVGBtn.setBackground(orange);
+        SVGBtn.setBackground(darkGreen);
+        SVGBtn.setForeground(Color.WHITE);
 
+        PaintBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                if (PaintBtn.contains(e.getPoint())) {
+                    PaintBtn.setBackground(orange);
+                    PaintBtn.setForeground(Color.BLACK);
+                }
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                if (!PaintBtn.contains(e.getPoint())) {
+                    PaintBtn.setBackground(darkGreen);
+                    PaintBtn.setForeground(Color.WHITE);
+                }
+            }
+        });
+        SVGBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                if (SVGBtn.contains(e.getPoint())) {
+                    SVGBtn.setBackground(orange);
+                    SVGBtn.setForeground(Color.BLACK);
+                }
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                if (!SVGBtn.contains(e.getPoint())) {
+                    SVGBtn.setBackground(darkGreen);
+                    SVGBtn.setForeground(Color.WHITE);
+                }
+            }
+        });
         PaintBtn.addActionListener(e -> {
             mainFrame.setVisible(false);
             Paint.main(null);
         });
         SVGBtn.addActionListener(e -> {
+            PaintBtn.setBackground(orange);
             mainFrame.setVisible(false);
             SVGPaint.main(null);
-            //System.exit(0);
         });
 
-        // put image in the button
-        //ImageIcon infoIcon = new ImageIcon("Images/infoIcon.png");
-        JButton infoBtn = new JButton("Info");
-        infoBtn.setFont(new Font("Code Pro", Font.PLAIN, 20));
-        infoBtn.setBackground(darkGreen);
+
+        ImageIcon infoIcon = new ImageIcon("Images/infoIcon40x40.png");
+        JButton infoBtn = new JButton(infoIcon);
+        //infoBtn.setFont(new Font("Code Pro", Font.PLAIN, 20));
+        infoBtn.setPreferredSize(new Dimension(45, 45));
+        infoBtn.setBackground(Color.WHITE);
         infoBtn.addActionListener(e -> {
             Info info = new Info();
             String infoText = info.show();

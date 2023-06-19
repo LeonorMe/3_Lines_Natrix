@@ -31,6 +31,10 @@ public class DrawArea extends JComponent{
         imageSVG = new ImageSVG(imageSize.width, imageSize.height);
         // add a background
         imageSVG.addShape(new Rectangle(getId(), 0, 0, imageSize.width, imageSize.height, "fill:blue"));
+        g2.setPaint(Color.white);
+        // draw white on entire draw area to clear
+        g2.fillRect(0, 0, getSize().width, getSize().height);
+        g2.setPaint(lastColor);
 
         setDoubleBuffered(false);
         addMouseListener(new MouseAdapter() {
@@ -41,7 +45,6 @@ public class DrawArea extends JComponent{
                     currentY = e.getY();
                     // oldX = e.getX();
                     // oldY = e.getY();
-
                 }
             }
         });
@@ -62,10 +65,10 @@ public class DrawArea extends JComponent{
 
     // now we create exposed methods
     public void clear() {
-        //g2.setPaint(Color.white);
+        g2.setPaint(Color.white);
         // draw white on entire draw area to clear
-        //g2.fillRect(0, 0, getSize().width, getSize().height);
-        //g2.setPaint(Color.black);
+        g2.fillRect(0, 0, getSize().width, getSize().height);
+        g2.setPaint(lastColor);
         //repaint();
         imageSVG.getShapes().get(0).setStyle("fill:white");
         redrawSVG();
@@ -79,7 +82,6 @@ public class DrawArea extends JComponent{
     public void otherColor() {
         lastColor = JColorChooser.showDialog(null, "Choose a color", lastColor);
         g2.setPaint(lastColor);
-
     }
 
     public void setThickness(int size) {
@@ -89,7 +91,6 @@ public class DrawArea extends JComponent{
 
     public void setBgColor() {
         bgColor = JColorChooser.showDialog(null, "Choose a color", Color.WHITE);
-        repaint();
         imageSVG.getShapes().get(0).setStyle("fill:" + bgColor.toString());
         redrawSVG();
     }
@@ -100,21 +101,21 @@ public class DrawArea extends JComponent{
     public void line() {
         MODE = 1;
         g2.drawLine(oldX, oldY, currentX, currentY);
-        repaint();
         imageSVG.addShape(new Line("line_" + getId(),oldX, oldY, currentX, currentY, this.styleString));
+        redrawSVG();
     }
     public void circle() {
         MODE = 2;
         int raio = (int) Math.sqrt(currentX*currentX+currentY*currentY);
         g2.drawOval(oldX, oldY, raio, raio);
-        repaint();
         imageSVG.addShape(new Circle("circle_" + getId(),oldX, oldY, raio, this.styleString));
+        redrawSVG();
     }
     public void rectangle() {
         MODE = 3;
         g2.drawRect(oldX, oldY, currentX, currentY);
-        repaint();
         imageSVG.addShape(new shapes.Rectangle("rect_" + getId(),oldX, oldY, currentX, currentY, this.styleString));
+        redrawSVG();
     }
 
     /*
@@ -159,6 +160,7 @@ public class DrawArea extends JComponent{
                 }
             }
         });
+        redrawSVG();
     }
 
     /*

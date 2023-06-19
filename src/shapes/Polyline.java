@@ -94,6 +94,7 @@ public class Polyline extends AbstShape {
     }
 
     public boolean isInside(int currentX, int currentY, int size) {
+        // TODO
         if(!super.isInside(currentX, currentY)){
             for (Ponto ponto: pontos) {
                 if(currentX - ponto.getX() < size && currentY - ponto.getY() < size)
