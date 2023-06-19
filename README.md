@@ -1,8 +1,8 @@
 # 3_Lines_Natrix_/-\__/-o<
-SVG reader and editor
+2D image paint like and SVG reader and editor
 -----
 by Leonor Medeiros
-
+V. 2.0
 Para a UC Modelação e Programação - java
 
 ## Estrutura
@@ -14,10 +14,9 @@ Para a UC Modelação e Programação - java
       2. FormasEnum (enum)
       3. Ponto
       4. Reta (extends Forma)
-      5. Triangulo (extends Forma)
-      6. Retangulo (extends Forma)
-      7. Poiligono (extends Forma)
-      8. InteractXML
+      5. Retangulo (extends Forma)
+      6. Polyline (extends Forma)
+      7. InteractXML
 2. Front end
    1. Frame
    2. painels
@@ -29,13 +28,4 @@ Para a UC Modelação e Programação - java
       6. Defenitions
       7. Save
       8. AbrirSVG
-
-// TODO
-/*
-pacage:
-grafic interface
-elementos_graficos
-package root
-
-        // ver enumerados: array ? ter anumerado de shapes >class forma >> classes filhas shapes
-*/
+      9. 
